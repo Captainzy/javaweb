@@ -12,7 +12,6 @@
 		
 	<!-- 注解扫描 -->	
 	<context:component-scan base-package="cn.zouyang,test"></context:component-scan>
-	<!--这是一次测试-->
 	<mvc:annotation-driven />
 	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
