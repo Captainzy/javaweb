@@ -20,11 +20,11 @@
     	<tbody>
     		<tr>
     			<td>姓名</td>
-    			<td>${userName }</td>
+    			<td id="userName">${userName }</td>
     		</tr>
     		<tr>
     			<td>密码</td>
-    			<td>${password }</td>
+    			<td id="password">${password }</td>
     		</tr>
     	</tbody>
     </table>
@@ -36,8 +36,21 @@
     	
     	function submit(){
     		alert("发送请求");
-    		var url = "${basePath}/Test/getUserInfo";
-    		window.location.href = url;
+    		var url = "${basePath}/Test/getUserInfoNew?userName=ZOUYANG&password=ZOUYANG";
+    		document.getElementById("userName").innerHTML = "23";
+    		alert(url);
+    		$.ajax({
+    			url:url,
+    			data:null,
+    			type:"GET",
+    			dataType:"json"
+    			success:function(rs){
+    				
+    				$("#userName").innerHTML = "${userName}";
+    				$("#password").innerHTML = "${password}";
+    			}
+    		
+    		}); 
     		
     	}
     	
