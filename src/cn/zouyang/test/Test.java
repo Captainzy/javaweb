@@ -1,5 +1,6 @@
 package cn.zouyang.test;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
