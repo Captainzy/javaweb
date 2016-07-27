@@ -1,5 +1,7 @@
 package cn.zouyang.test;
 
+import java.io.File;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,14 +15,40 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
+
+import jdk.nashorn.internal.ir.LiteralNode.ArrayLiteralNode.ArrayUnit;
+import common.utils.SystemUtils;
 
 public class TestMain {
 	public static void main(String[] args){
-		String beginTime = "2016/2-28";
-		String endTime = "2016-3-16";
-		System.out.println(getDateList(beginTime,endTime).toString());
+//		String beginTime = "2016/2-28";
+//		String endTime = "2016-3-16";
+//		System.out.println(getDateList(beginTime,endTime).toString());
+		   // 第一种：获取类加载的根路径   D:\git\daotie\daotie\target\classes
+//        String s = SystemUtils.class.getClassLoader().getResource("").getPath();
+//        System.out.println(s);
+
+//		String value = SystemUtils.GetValueByKey("test.name");
+//		System.out.println(value);
+//		Object[] objs = null;
+//		ArrayUtils au = 
+//		System.out.println(objs.length);
+//		for(int i = 0;i<objs.length;i++){
+//			System.out.println(objs[i]);
+//		}
+		ArrayList<Object> list = new ArrayList<>();
+		list.add("fdasfdas");
+		list.add(123);
+		justTest(list.toArray());
+		
 	}
 	
+	public static void justTest(Object... objs){
+		for(Object obj:objs){
+			System.out.println(obj);
+		}
+	}
 	public static List<Map> getAllMap(List<Map> list,List<String> dateList,String xName,String yName){
 		List<Map> resultList = new ArrayList<Map>();
 		for(int i = 0,j = 0;i<dateList.size();i++){
