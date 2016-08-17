@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 
 /**
  * @ClassName: GenericServletPractice
@@ -27,6 +28,7 @@ public class GenericServletPractice extends GenericServlet {
 		Object str = this.getServletContext().getAttribute("contextText");
 		System.out.println("GenericServletPractice......");
 		System.out.println(str==null?"":str.toString());
+		this.getServletContext().setAttribute("listener", "listener test");
 	}
 
 }

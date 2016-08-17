@@ -14,13 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(value="/servletTest",initParams={@WebInitParam(name="param1",value="123"),@WebInitParam(name="param2",value="2222")})
 public class ServletTest extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter writer = response.getWriter();
 		writer.write("<p>this is a test.</p>");
 		Enumeration<String> obj = request.getHeaderNames();
@@ -48,6 +48,8 @@ public class ServletTest extends HttpServlet{
 		System.out.println("-------------------------------------------------");
 		ServletContext context = this.getServletContext();
 		context.setAttribute("contextText", "this is a context text");
+		
+		HttpSession session = request.getSession();
 	}
 
 }
