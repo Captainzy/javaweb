@@ -24,8 +24,8 @@ public class GenericServletPractice extends GenericServlet {
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
-		Object obj = this.getServletConfig();
-		System.out.println("好");
+		Object str = this.getServletContext().getAttribute("contextText");
+		System.out.println(str==null?"":str.toString());
 	}
 
 }

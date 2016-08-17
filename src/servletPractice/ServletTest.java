@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 
 import javax.jws.WebParam;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(value="/servletTest")
+@WebServlet(value="/servletTest",initParams={@WebInitParam(name="param1",value="123"),@WebInitParam(name="param2",value="2222")})
 public class ServletTest extends HttpServlet{
 
 	@Override
@@ -21,12 +23,12 @@ public class ServletTest extends HttpServlet{
 		// TODO Auto-generated method stub
 		PrintWriter writer = response.getWriter();
 		writer.write("<p>this is a test.</p>");
-		writer.write("<script>alert(123)</script>");
 		Enumeration<String> obj = request.getHeaderNames();
 		while(obj.hasMoreElements()){
 			String headerName = obj.nextElement();
 			System.out.println(headerName + " : " + request.getHeader(headerName));
 		}
+		
 		System.out.println("pathInfo : "+request.getPathInfo());
 		System.out.println("authType : "+request.getAuthType());
 		System.out.println("contentType : "+request.getContentType());
@@ -34,6 +36,18 @@ public class ServletTest extends HttpServlet{
 		System.out.println("pathInfo : "+request.getPathInfo());
 		System.out.println("servletPath : "+request.getServletPath());
 		System.out.println("requestUrl : "+request.getRequestURI());
+		
+		System.out.println("----------------------------------------------");
+		ServletConfig config = getServletConfig();
+		Enumeration<String> paramNames = config.getInitParameterNames();
+		while(paramNames.hasMoreElements()){
+			String paramName = paramNames.nextElement();
+			System.out.println(paramName + " : " + config.getInitParameter(paramName));
+		}
+		
+		System.out.println("-------------------------------------------------");
+		ServletContext context = this.getServletContext();
+		context.setAttribute("contextText", "this is a context text");
 	}
 
 }
