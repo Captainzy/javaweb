@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import freemarker.directive.RepeatDirective;
+import freemarker.directive.UpperDirective;
+import freemarker.method.FreemarkerMethodTest;
+import freemarker.template.ObjectWrapper;
+import freemarker.template.SimpleHash;
+
 @WebServlet(value="/freemarkerServlet")
 public class FreemarkerServletTest extends HttpServlet {
 
@@ -28,7 +34,19 @@ public class FreemarkerServletTest extends HttpServlet {
 		p.setAge("13");
 		p.setSex("男");
 		map.put("people", p);
+		//FreemarkerUtil.addModelData(map, "fmk_01.ftl", writer);
+		
+		
+		map.put("fmkMethodTest", new FreemarkerMethodTest());
+		
+		map.put("upper", new UpperDirective());
+		
+		map.put("repeat", new RepeatDirective());
+		
+		SimpleHash simpleHash = new SimpleHash(ObjectWrapper.DEFAULT_WRAPPER);
+		simpleHash.put("peo", p);
 		FreemarkerUtil.addModelData(map, "freemarker.ftl", writer);
+		FreemarkerUtil.addModelData(simpleHash, "freemarker.ftl", writer);
 	}
 	
 }
