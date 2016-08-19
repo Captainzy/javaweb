@@ -18,6 +18,7 @@ public class FreemarkerServletTest extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext servletContext = request.getServletContext();
+		response.setCharacterEncoding("UTF-8");
 		FreemarkerUtil.initConfiguration(servletContext);
 		Writer writer = response.getWriter();
 		Map<String,Object> map = new HashMap<String,Object>();
