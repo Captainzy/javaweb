@@ -42,11 +42,7 @@ public class FreemarkerServletTest extends HttpServlet {
 		map.put("upper", new UpperDirective());
 		
 		map.put("repeat", new RepeatDirective());
-		
-		SimpleHash simpleHash = new SimpleHash(ObjectWrapper.DEFAULT_WRAPPER);
-		simpleHash.put("peo", p);
 		FreemarkerUtil.addModelData(map, "freemarker.ftl", writer);
-		FreemarkerUtil.addModelData(simpleHash, "freemarker.ftl", writer);
 	}
 	
 }
