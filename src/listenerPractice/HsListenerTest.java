@@ -9,13 +9,13 @@ public class HsListenerTest implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
-		System.out.println("HttpSession create");
+		//System.out.println("HttpSession create");
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent arg0) {
 		// TODO Auto-generated method stub
-		System.out.println("HttpSession destroy");
+		//System.out.println("HttpSession destroy");
 	}
 
 }

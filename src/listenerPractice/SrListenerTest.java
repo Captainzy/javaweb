@@ -9,12 +9,12 @@ public class SrListenerTest implements ServletRequestListener {
 
 	@Override
 	public void requestDestroyed(ServletRequestEvent arg0) {
-		System.out.println("ServletRequest destroy");
+		//System.out.println("ServletRequest destroy");
 	}
 
 	@Override
 	public void requestInitialized(ServletRequestEvent arg0) {
-		System.out.println("ServletRequest initialize");
+		//System.out.println("ServletRequest initialize");
 	}
 
 }
