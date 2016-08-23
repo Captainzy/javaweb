@@ -5,14 +5,32 @@
 <title>Insert title here</title>
 </head>
 <body>
+	--表达式<br>
+	${"It's \"quoted\" and this is a backslash: \\"}<br>或者<br>
+	${'It\'s "quoted" and this is a backslash: \\'}
+	<br><br>
 	author : ${author}<br><br>
 	<#if author == "zouyang">
 		Author's name is zouyang;
+		${author?upper_case}
 	</#if>
 	<br><br>
-	<#assign peoa="zhang">
+	<#assign li4="li4">
+	${li4!"nobody"}
+	<br><br>
+	<#assign peoa="zhang3">
 	<#if peoa=="zhang">
 		${peoa}
+	<#elseif peoa=="li">
+		else test ${peoa}
+	<#else>
+		nothing
+	</#if>
+	<br><br>
+	<#if table??>
+		${table}
+	<#else>
+		table is not exist
 	</#if>
 	<br><br>
 	<#list list as item>
