@@ -36,6 +36,18 @@
 	  ${rank2}<br>
 	</@repeat>
 	<br><br>
-	${peo.name}
+	
+	<@repeat count=3 flag=true>
+		falt
+	</@repeat>
+	<br><br>
+	<#macro repeat2 count>
+	  <#list 1..count as x>
+	    <#nested x, x/2, x==count>
+	  </#list>
+	</#macro>
+	<@repeat2 count=4 ; a, b, c,d>
+	  ${a}. ${b}<#if c> Last!</#if>
+	 </@repeat2>
 </body>
 </html>

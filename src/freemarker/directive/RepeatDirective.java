@@ -29,7 +29,7 @@ public class RepeatDirective implements TemplateDirectiveModel {
 				count = Integer.valueOf(entry.getValue().toString());
 			}
 		}
-		
+		System.out.println(params.get("flag"));
 		if(body!=null){
 			Writer out = env.getOut();
 			for(int i=0;i<count;i++){
