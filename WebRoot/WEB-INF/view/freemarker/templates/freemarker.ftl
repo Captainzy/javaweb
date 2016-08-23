@@ -5,7 +5,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-	author : ${author}
+	author : ${author}<br><br>
+	<#if author == "zouyang">
+		Author's name is zouyang;
+	</#if>
+	<br><br>
+	<#assign peoa="zhang">
+	<#if peoa=="zhang">
+		${peoa}
+	</#if>
+	<br><br>
+	<#list list as item>
+		name: ${item.name}<br>
+		age : ${item.age}<br>
+		sex : ${item.sex} <br>
+	</#list>
+	<br><br>
 	<table>
 		<tr>
 			<td>${people.name}</td>
@@ -49,5 +64,7 @@
 	<@repeat2 count=4 ; a, b, c,d>
 	  ${a}. ${b}<#if c> Last!</#if>
 	 </@repeat2>
+	 
+	 
 </body>
 </html>

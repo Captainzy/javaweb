@@ -1,22 +1,23 @@
 package listenerPractice;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
+import freemarker.template.Configuration;
 
 @WebListener
 public class ScListenerTest implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
 		//System.out.println("ServletContext destroy");
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
+	public void contextInitialized(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
-		//System.out.println("ServletContext initialize");
 	}
 
 }
