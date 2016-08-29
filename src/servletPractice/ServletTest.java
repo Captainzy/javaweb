@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import common.utils.SystemUtils;
+
 @WebServlet(value="/servletTest",initParams={@WebInitParam(name="param1",value="123"),@WebInitParam(name="param2",value="2222")})
 public class ServletTest extends HttpServlet{
 

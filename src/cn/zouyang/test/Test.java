@@ -3,10 +3,13 @@ package cn.zouyang.test;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import cn.zouyang.test.service.TestService;
 
 /**
  * @ClassName: Test
@@ -20,8 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/Test")
 public class Test {
 	
+	@Autowired
+	private TestService testService;
+	
 	@RequestMapping(value="/test",produces="application/json;charset=UTF-8")
 	public @ResponseBody String test(){
+		testService.test();
 		return "测试效果";
 	}
 	

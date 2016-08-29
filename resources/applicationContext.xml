@@ -12,12 +12,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
+	<context:property-placeholder location="classpath:ds.properties" />
 
-	<!-- 激活bean的注解配置 -->
-	<context:annotation-config />
-	
-	<context:property-placeholder location="classpath:ds.properties"/>
-	
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="url"  value="${mysql.url}"/>
 		<property name="driverClassName" value="${mysql.driver}" />
@@ -68,4 +64,13 @@
 	</bean>
 	
 	<tx:annotation-driven/>
+	<!-- XML配置aop -->
+	<!-- <bean id="aopTest" class="aop.AopTest"></bean> -->
+	<!-- <aop:config>
+		<aop:aspect id="aopAspect" ref="aopTest">
+			<aop:pointcut expression="execution(* cn.zouyang.test.service.*.*(..))" id="pointCut"/>
+			<aop:before method="beforePointCut" pointcut-ref="pointCut"/>
+			<aop:after method="afterPointCut" pointcut-ref="pointCut"/>
+		</aop:aspect>
+	</aop:config> -->
 </beans>
