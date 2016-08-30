@@ -1,5 +1,8 @@
 package cn.zouyang.test;
 
+import java.util.EnumMap;
+import java.util.EnumSet;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.zouyang.test.service.TestService;
+import springTypeConversion.StringToEnum;
 
 /**
  * @ClassName: Test
@@ -28,7 +32,9 @@ public class Test {
 	
 	@Autowired
 	private TestService testService;
-	
+	@Autowired
+	private StringToEnum stringToEnum;
+	public enum week { Mon, Tue, Wed, Thu, Fri, Sat, Sun};
 	@RequestMapping(value="/test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String test(HttpServletRequest request,HttpServletResponse response){
 		testService.test();

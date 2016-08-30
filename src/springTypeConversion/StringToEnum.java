@@ -2,8 +2,10 @@ package springTypeConversion;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
+import org.springframework.stereotype.Component;
 
 @SuppressWarnings("rawtypes")
+@Component
 public class StringToEnum implements ConverterFactory<String, Enum>{
 
 	@Override
