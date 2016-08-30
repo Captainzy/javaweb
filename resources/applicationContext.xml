@@ -67,7 +67,7 @@
 	<!-- XML配置事务 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="get*"/>
+			<tx:method name="get*" read-only="true" isolation="DEFAULT" propagation="REQUIRED"/>
 		</tx:attributes>
 	</tx:advice>
 	<!-- XML配置aop -->
