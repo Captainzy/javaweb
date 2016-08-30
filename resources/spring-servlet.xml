@@ -16,10 +16,12 @@
 	<!-- 启用aspectj -->	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	
+	<!-- 激活springmvc 注解 -->
+	<mvc:annotation-driven/>
+	
 	<!-- 注解扫描 -->	
 	<context:component-scan base-package="cn.zouyang,aop" />
 	
-	<mvc:annotation-driven/>
 	<!-- 视图解析器 -->
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
