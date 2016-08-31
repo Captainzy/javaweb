@@ -1,22 +1,18 @@
 package cn.zouyang.test;
 
-import java.util.EnumMap;
-import java.util.EnumSet;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.zouyang.test.service.TestService;
-import springTypeConversion.StringToEnum;
+import springTypeConversion.Child;
+import springTypeConversion.IntegerToString;
+import springTypeConversion.PeopleToAnimal;
 
 /**
  * @ClassName: Test
@@ -33,11 +29,22 @@ public class Test {
 	@Autowired
 	private TestService testService;
 	@Autowired
-	private StringToEnum stringToEnum;
-	public enum week { Mon, Tue, Wed, Thu, Fri, Sat, Sun};
+	private IntegerToString integerToString;
+	@Autowired
+	private PeopleToAnimal peopleToAnimal;
 	@RequestMapping(value="/test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String test(HttpServletRequest request,HttpServletResponse response){
+		//aop测试
 		testService.test();
+		//类型转换测试   -01
+		int i = 5;
+		System.out.println(integerToString.convert(i));
+		//类型转换测试   -02
+		springTypeConversion.People p = new springTypeConversion.People();
+		p.setAge("17");
+		p.setName("Tom");
+		Child child = peopleToAnimal.getConverter(Child.class).convert(p);
+		System.out.println(child.toString());
 		return "测试效果";
 	}
 	
