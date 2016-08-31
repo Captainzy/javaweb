@@ -47,7 +47,7 @@ public class UploadUtil {
 			return "上传完成";
 		}
 	}
-	//通过spring包装好的解析器实现上传
+	//通过spring包装好的解析器实现上传，这种方式上传速度更快
 	public static String uploadMultipartFile(CommonsMultipartFile[] files,String pathname){
 		if(files.length<=0){
 			return "没有文件";

@@ -25,7 +25,7 @@ public class UploadController {
 	public @ResponseBody String uploadByStream(
 			@RequestParam(value="files1",required=false)CommonsMultipartFile[] files,HttpServletRequest request,HttpServletResponse response){
 		System.out.println("需要上传："+files.length+"个文件");
-		String pathname = "D:/test/";
+		String pathname = "C:\\Users\\zouyang\\Desktop\\test\\";
 		String result = UploadUtil.uploadByStream(files, pathname);
 		System.out.println(result);
 		return result;
@@ -35,7 +35,7 @@ public class UploadController {
 	public @ResponseBody String uploadByMultipartFile(
 			@RequestParam(value="files2",required=false)CommonsMultipartFile[] files,HttpServletRequest request,HttpServletResponse response){
 		System.out.println("需要上传："+files.length+"个文件");
-		String pathname = "D:/test/";
+		String pathname = "C:\\Users\\zouyang\\Desktop\\test\\";
 		String result = UploadUtil.uploadMultipartFile(files, pathname);
 		System.out.println(result);
 		return result;
