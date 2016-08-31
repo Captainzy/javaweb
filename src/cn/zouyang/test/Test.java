@@ -32,6 +32,7 @@ public class Test {
 	private IntegerToString integerToString;
 	@Autowired
 	private PeopleToAnimal peopleToAnimal;
+	
 	@RequestMapping(value="/test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String test(HttpServletRequest request,HttpServletResponse response){
 		//aop测试
