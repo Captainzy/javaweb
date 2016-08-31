@@ -1,4 +1,4 @@
-package springTypeConversion;
+package springFramework.typeConversion;
 
 public class Animal {
 	private String species;

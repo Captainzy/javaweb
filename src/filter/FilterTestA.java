@@ -1,4 +1,4 @@
-package filterPractice;
+package filter;
 
 import java.io.IOException;
 

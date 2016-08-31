@@ -1,4 +1,4 @@
-package springTypeConversion;
+package springFramework.typeConversion;
 
 public class People{
 	private String name;

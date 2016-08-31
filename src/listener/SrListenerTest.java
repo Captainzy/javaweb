@@ -1,4 +1,4 @@
-package listenerPractice;
+package listener;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;

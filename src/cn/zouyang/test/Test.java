@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.zouyang.test.service.TestService;
-import springTypeConversion.Child;
-import springTypeConversion.IntegerToString;
-import springTypeConversion.PeopleToAnimal;
+import springFramework.typeConversion.Child;
+import springFramework.typeConversion.IntegerToString;
+import springFramework.typeConversion.PeopleToAnimal;
 
 /**
  * @ClassName: Test
@@ -40,7 +40,7 @@ public class Test {
 		int i = 5;
 		System.out.println(integerToString.convert(i));
 		//类型转换测试   -02
-		springTypeConversion.People p = new springTypeConversion.People();
+		springFramework.typeConversion.People p = new springFramework.typeConversion.People();
 		p.setAge("17");
 		p.setName("Tom");
 		Child child = peopleToAnimal.getConverter(Child.class).convert(p);
