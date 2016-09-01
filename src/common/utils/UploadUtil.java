@@ -4,14 +4,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class UploadUtil {
 	//通过字节流的形式上传
-	public static String uploadByStream(CommonsMultipartFile[] files,String pathname){
-		if(files.length<=0){
+	public static String uploadByStream(List<MultipartFile> files,String pathname){
+		if(files.size()<=0){
 			return "没有文件";
 		}else{
 			File dir = new File(pathname);
@@ -23,8 +24,8 @@ public class UploadUtil {
 				}
 			}
 			long begin = new Date().getTime();
-			for(int i = 0;i<files.length;i++){
-				CommonsMultipartFile file = files[i];
+			for(int i = 0;i<files.size();i++){
+				MultipartFile file = files.get(i);
 				FileOutputStream out;
 				try {
 					byte[] b = file.getBytes();
@@ -48,8 +49,8 @@ public class UploadUtil {
 		}
 	}
 	//通过spring包装好的解析器实现上传，这种方式上传速度更快
-	public static String uploadMultipartFile(CommonsMultipartFile[] files,String pathname){
-		if(files.length<=0){
+	public static String uploadMultipartFile(List<MultipartFile> files,String pathname){
+		if(files.size()<=0){
 			return "没有文件";
 		}else{
 			File dir = new File(pathname);
@@ -61,8 +62,8 @@ public class UploadUtil {
 				}
 			}
 			long begin = new Date().getTime();
-			for(int i = 0;i<files.length;i++){
-				MultipartFile file = files[i];
+			for(int i = 0;i<files.size();i++){
+				MultipartFile file = files.get(i);
 				try {
 					File f = new File(pathname+ new Date().getTime() + file.getOriginalFilename());
 					if(!f.exists()){
