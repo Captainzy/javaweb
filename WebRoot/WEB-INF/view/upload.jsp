@@ -26,16 +26,18 @@
 多文件上传
  <div class="btns">
      <div id="picker">上传文件</div>
-     <span id="filesNum"></span><br>
-     <span id="percent">当前进度</span><br>
+     <span id="filesNum">已选择文件数 ：0</span><br>
+     <progress id="progress" value="0" max="100"></progress>
+     <span id="percent">0%</span><br>
      <button id="ctlBtn" class="btn btn-default" onclick="beginUpload()">开始上传</button><br>
-     <button id="ctlBtn" class="btn btn-default" onclick="stopUpload()">暂停上传</button><br>
-    <button id="ctlBtn" class="btn btn-default" onclick="retryUpload()">继续上传</button>
+     <button id="ctlBtn" class="btn btn-default" onclick="stopUpload()">中断上传</button><br>
+     <span id="error"></span>
  </div>
 <script>
 	var uploader;
 	$(document).ready(function(){
-		var url = "/javaweb/upload/uploadByStream";
+		//var url = "/javaweb/upload/uploadByStream";
+		var url = "/javaweb/upload/uploadByMultipartFile"
 		uploader = new WebUploader.Uploader({
 			 pick:{
 				 id:'#picker',
@@ -44,24 +46,45 @@
 			 server: url,
 			 method:'POST'
 		});
+		
 		uploader.on("filesQueued",function(){
 			var files = uploader.getFiles();
 			$("#filesNum").text("已选择文件数 ："+files.length);
-			percent = 0;
 		});
+		
 		uploader.on("startUpload",function(){
 			alert("文件现在开始上传");
 		});
+		
 		uploader.on("uploadProgress",function(file,percentage){
-			var percent = (percentage * 100)/1 + '%';
-			$("#percent").text("当前进度："+percent);
+			var percent = parseInt(percentage * 100) + '%';
+			$("#percent").text(percent);
+			$("#progress").val(parseInt(percentage * 100));
 		});
+		
 		uploader.on("uploadFinished",function(){
 			alert("文件上传结束");
-			upload.reset();
+			uploader.reset();
+			$("#percent").text(0+"%");
+			$("#progress").val(0);
+			$("#filesNum").text("已选择文件数 ：0");
 		});
-		uploader.on("uploadError",function(){
+		uploader.on("uploadError",function(file,reason){
 			alert("上传文件出错");
+			var str = "";
+			reason = reason.toLowerCase();
+			if(reason == "server"){
+				str = "服务器端发生异常"
+			}else if(reason=="http"){
+				str = "网络异常";
+			}else {
+				str = "上传异常终止";
+			}
+			$("#error").text(str);
+		});
+		
+		uploader.on("stopUpload",function(){
+			alert("中断上传");
 		});
 	});
 	
@@ -69,11 +92,9 @@
 		uploader.upload();
 	}	
 	var stopUpload = function(){
-		uploader.stop();
+		uploader.stop(true);
 	}
-	var retryUpload = function(){
-		uploader.retry();
-	}
+
 
 </script>
 </body>

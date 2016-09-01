@@ -56,7 +56,7 @@ public class UploadController {
 		}
 		System.out.println("需要上传："+files.size()+"个文件");
 		String pathname = "D:\\test\\";
-		String result = UploadUtil.uploadByStream(files, pathname);
+		String result = UploadUtil.uploadMultipartFile(files, pathname);
 		System.out.println(result);
 		return "";
 	}
