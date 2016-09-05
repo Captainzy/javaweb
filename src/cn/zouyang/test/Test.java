@@ -33,6 +33,10 @@ public class Test {
 	@Autowired
 	private PeopleToAnimal peopleToAnimal;
 	
+	@RequestMapping(value="/scrollTest")
+	public String scrollTest(){
+		return "scrollTest/scroll";
+	}
 	@RequestMapping(value="/test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String test(HttpServletRequest request,HttpServletResponse response){
 		//aop测试
