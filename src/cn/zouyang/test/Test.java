@@ -44,10 +44,6 @@ public class Test {
 	private void initBinder(WebDataBinder dataBinder){
 		dataBinder.setValidator(new PersonValidator());
 	}
-	@RequestMapping(value="/scrollTest")
-	public String scrollTest(){
-		return "scrollTest/scroll";
-	}
 	
 	@RequestMapping(value="/validationTest",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String validationTest(@Validated Person person,BindingResult brs){
@@ -56,6 +52,11 @@ public class Test {
 		}else{
 			return "校验通过";
 		}
+	}
+	
+	@RequestMapping(value="/scrollTest")
+	public String scrollTest(){
+		return "scrollTest/scroll";
 	}
 	
 	@RequestMapping(value="/test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
