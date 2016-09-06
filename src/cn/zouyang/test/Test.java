@@ -6,13 +6,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.zouyang.test.service.TestService;
 import springFramework.typeConversion.Child;
 import springFramework.typeConversion.IntegerToString;
 import springFramework.typeConversion.PeopleToAnimal;
+import validation.Person;
+import validation.PersonValidator;
 
 /**
  * @ClassName: Test
@@ -32,11 +39,25 @@ public class Test {
 	private IntegerToString integerToString;
 	@Autowired
 	private PeopleToAnimal peopleToAnimal;
-	
+
+	@InitBinder
+	private void initBinder(WebDataBinder dataBinder){
+		dataBinder.setValidator(new PersonValidator());
+	}
 	@RequestMapping(value="/scrollTest")
 	public String scrollTest(){
 		return "scrollTest/scroll";
 	}
+	
+	@RequestMapping(value="/validationTest",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody String validationTest(@Validated Person person,BindingResult brs){
+		if(brs.hasErrors()){
+			return brs.toString();
+		}else{
+			return "校验通过";
+		}
+	}
+	
 	@RequestMapping(value="/test",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String test(HttpServletRequest request,HttpServletResponse response){
 		//aop测试
