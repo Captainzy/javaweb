@@ -38,7 +38,12 @@
         right:0px;
         transition:max-height 1s linear;
     }
-
+    
+	.scroll-row>span{
+		display:block;
+		margin:2px 0px;
+	}
+	
     .scroll-row-first{
        animation:heightMove 1s linear;
     }
@@ -68,7 +73,9 @@ var data = [{"NAME":"S: \"ET TROJAN - 未定义的DNS地址空间，\"","risk":0
         for(var i = 0;i<16;i++){
             var node = document.createElement("div");
             node.className = "scroll-row";
-            node.innerHTML = data[i].NAME;
+            var span = document.createElement("span");
+            span.innerHTML = data[n%data.length].NAME;
+            node.appendChild(span);
 
             var parent = document.getElementById("scroll-list");
             parent.insertBefore(node,parent.children[0]);
@@ -93,7 +100,9 @@ var data = [{"NAME":"S: \"ET TROJAN - 未定义的DNS地址空间，\"","risk":0
 
         var firstNode = document.createElement("div");
         firstNode.className = "scroll-row scroll-row-first";
-        firstNode.innerHTML = data[n%data.length].NAME;
+        var span = document.createElement("span");
+        span.innerHTML = data[n%data.length].NAME;
+        firstNode.appendChild(span);
         n++;
 
         parent.insertBefore(firstNode,parent.children[0]);
