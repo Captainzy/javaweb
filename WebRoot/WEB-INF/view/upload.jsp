@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<script type="text/javascript" charset="UTF-8" src="../js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" charset="UTF-8" src="../js/webuploader.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../StaticResources/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="../StaticResources/js/webuploader.js"></script>
 </head>
 <body>
 <p>文件上传页面</p>

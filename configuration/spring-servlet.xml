@@ -51,5 +51,4 @@
 			<bean class="springFramework.interceptor.TestInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors> 
-
 </beans>

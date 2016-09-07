@@ -8,7 +8,7 @@
 </head>
 <style>
     body{
-        background-image:url("/javaweb/images/bj.jpg");
+        background-image:url("/javaweb/StaticResources/images/bj.jpg");
     }
     #div-scroll{
         border:1px solid red;
