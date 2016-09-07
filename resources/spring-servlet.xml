@@ -20,7 +20,7 @@
 	<mvc:annotation-driven/>
 	
 	<!-- 注解扫描 -->	
-	<context:component-scan base-package="cn.zouyang,aop,springFramework,upload" />
+	<context:component-scan base-package="aop,applicationListener,controllerTest,springFramework,upload" />
 	
 	<!-- 视图解析器 -->
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -39,7 +39,17 @@
 		<property name="maxUploadSize" value="2000000000" />
 		<property name="maxInMemorySize" value="102400" />
 	</bean>
-	<mvc:interceptors>
-		<bean class=""></bean>
+	<!-- 拦截所有URL -->
+ 	<mvc:interceptors>
+		<bean class="springFramework.interceptor.MyInterceptor"></bean>
 	</mvc:interceptors>
+	<!-- 拦截匹配URL -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/*Test"/>
+			<mvc:mapping path="/**/test"/>
+			<bean class="springFramework.interceptor.TestInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors> 
+
 </beans>

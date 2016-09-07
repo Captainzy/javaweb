@@ -29,7 +29,7 @@ import springFramework.validation.PersonValidator;
  * 
  */
 
-@Controller
+@Controller(value="testController")
 @RequestMapping("/Test")
 public class Test {
 	

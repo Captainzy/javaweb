@@ -45,8 +45,8 @@
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:cn/zouyang/**/mapper/*.xml" />
-		<property name="typeAliasesPackage" value="cn.zouyang.**.model" />
+		<property name="mapperLocations" value="classpath:/**/mapper/*.xml" />
+		<property name="typeAliasesPackage" value="**.model" />
 	</bean>
 	
 		<!-- 配置sqlSession到bean中，线程安全 -->
