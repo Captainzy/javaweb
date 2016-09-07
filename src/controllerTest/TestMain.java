@@ -1,4 +1,4 @@
-package cn.zouyang.test;
+package controllerTest;
 
 import java.io.File;
 import java.net.URL;

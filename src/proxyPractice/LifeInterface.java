@@ -1,4 +1,4 @@
-package cn.proxyPractice;
+package proxyPractice;
 
 public interface LifeInterface {
 	public String working();

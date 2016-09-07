@@ -1,4 +1,4 @@
-package validation;
+package springFramework.validation;
 
 public class Person {
 	private String name;

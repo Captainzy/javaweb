@@ -1,4 +1,4 @@
-package cn.zouyang.test;
+package controllerTest;
 
 public class People {
 	private String name;

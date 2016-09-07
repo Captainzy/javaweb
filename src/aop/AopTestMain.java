@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import cn.zouyang.test.service.TestService;
+import controllerTest.service.TestService;
 
 public class AopTestMain {
 	public static void main(String[] args) {

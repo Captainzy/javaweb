@@ -1,4 +1,4 @@
-package cn.proxyPractice;
+package proxyPractice;
 
 public class Life implements LifeInterface {
 

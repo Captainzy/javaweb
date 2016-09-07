@@ -1,4 +1,4 @@
-package cn.zouyang.test;
+package controllerTest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package cn.zouyang.test;
+package controllerTest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.zouyang.test.service.TestService;
+import controllerTest.service.TestService;
 import springFramework.typeConversion.Child;
 import springFramework.typeConversion.IntegerToString;
 import springFramework.typeConversion.PeopleToAnimal;
-import validation.Person;
-import validation.PersonValidator;
+import springFramework.validation.Person;
+import springFramework.validation.PersonValidator;
 
 /**
  * @ClassName: Test
