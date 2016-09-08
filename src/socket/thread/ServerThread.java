@@ -16,6 +16,7 @@ public class ServerThread implements Runnable{
 		InputStreamReader reader = null;
 		OutputStreamWriter writer = null;
 		try {
+			Thread.sleep(100);
 			reader = new InputStreamReader(client.getInputStream(),"UTF-8");
 			StringBuffer sb = new StringBuffer();
 			char[] chars = new char[64];
@@ -33,14 +34,13 @@ public class ServerThread implements Runnable{
 
 			writer = new OutputStreamWriter(client.getOutputStream(), "UTF-8");
 			writer.write("客户端你好，我是服务端"+i+"号");
-			i++;
 			writer.write("eof");
 			writer.flush();
 			
 			reader.close();
 			writer.close();
 			this.client.close();
-		} catch (IOException  e) {
+		} catch (IOException | InterruptedException  e) {
 			e.printStackTrace();
 		}
 		

@@ -6,7 +6,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Client{
+public class Client_02 {
 	public static void main(String[] args) throws InterruptedException{
 		//用循环模拟实现多个客户端
 		String host = "127.0.0.1";
@@ -19,7 +19,7 @@ public class Client{
 				client = new Socket(host, port);
 				
 				writer = new OutputStreamWriter(client.getOutputStream(), "UTF-8");
-				writer.write("服务端你好，我是客户端1号");
+				writer.write("服务端你好，我是客户端2号");
 				writer.write("eof");
 				writer.flush();
 				
@@ -50,7 +50,6 @@ public class Client{
 				e.printStackTrace();
 			}
 		}
-		
-		
 	}
+		
 }
