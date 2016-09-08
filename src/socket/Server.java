@@ -1,5 +1,6 @@
 package socket;
 
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
@@ -11,28 +12,33 @@ public class Server {
 		ServerSocket server = new ServerSocket(port);
 		Socket client = server.accept();
 		InputStreamReader reader = new InputStreamReader(client.getInputStream(),"UTF-8");
-		OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream(),"UTF-8");
 		
+	
 		char[] chars = new char[64];
 		StringBuffer sb = new StringBuffer();
 		String str = "";
 		int len;
-		while((len = reader.read(chars))!=-1){
-			str = new String(chars,0,len);
-			if(str.indexOf("eof")!=-1){
-				sb.append(str.substring(0, str.indexOf("eof")));
-				break;
-			}
-			sb.append(str);
+		while(reader.ready() && (len = reader.read(chars))!=-1){
+		     str = new String(chars,0,len);
+		     if((str.indexOf("eof")!=-1)){
+		    	 sb.append(str,0,str.indexOf("eof"));
+		    	 break;
+		     }
+		     sb.append(str);
 		}
 		System.out.println(sb);
 		
+		Thread.sleep(500);//由于流的阻塞，因此必须保证服务端和客户端不同时使用一个流
+		
+		OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream(),"UTF-8");
 		writer.write("服务端：客户端你好");
+		writer.write("eof");
 		writer.flush();
 		
 		reader.close();
 		writer.close();
 		client.close();
+		server.close();
 		
 	}
 }
