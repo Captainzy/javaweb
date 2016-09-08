@@ -1,4 +1,4 @@
-package socket;
+package socket.basis;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +18,7 @@ public class Server {
 		StringBuffer sb = new StringBuffer();
 		String str = "";
 		int len;
-		while(reader.ready() && (len = reader.read(chars))!=-1){
+		while((len = reader.read(chars))!=-1){
 		     str = new String(chars,0,len);
 		     if((str.indexOf("eof")!=-1)){
 		    	 sb.append(str,0,str.indexOf("eof"));
@@ -27,8 +27,6 @@ public class Server {
 		     sb.append(str);
 		}
 		System.out.println(sb);
-		
-		Thread.sleep(500);//由于流的阻塞，因此必须保证服务端和客户端不同时使用一个流
 		
 		OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream(),"UTF-8");
 		writer.write("服务端：客户端你好");

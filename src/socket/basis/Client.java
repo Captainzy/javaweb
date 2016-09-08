@@ -1,4 +1,4 @@
-package socket;
+package socket.basis;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,15 +21,13 @@ public class Client {
 			writer.write("eof");
 			writer.flush();
 			
-			Thread.sleep(500);//由于流的阻塞，因此必须保证服务端和客户端不同时使用一个流
-			
 			char[] chars = new char[64];
 			StringBuffer sb = new StringBuffer();
 			int len;
 			String str = "";
 			
 			reader = new InputStreamReader(client.getInputStream(), "UTF-8");
-			while(reader.ready() && (len=reader.read(chars))!=-1){
+			while((len=reader.read(chars))!=-1){
 				str = new String(chars,0,len);
 				if(str.indexOf("eof")!=-1){
 					sb.append(str.substring(0, str.indexOf("eof")));
