@@ -1,6 +1,8 @@
 package websocket;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,8 +30,29 @@ public class WebSocketServer {
 		this.session = session;
 		System.out.println("连接数："+onlineCount.incrementAndGet());
 		//connections.add(this);
-		String message ="服务端：客户端你好，你已经连接上了";
-		sendMessage(message);
+		String message ="服务端：信息改变";
+		int i = 0;
+		int s = 0;
+		while(true){
+						
+			if(s%5 == 0){
+				sendMessage(message +"\t回复时间："+ new Date().getTime());
+				i++;
+			}
+			if(i==10){
+				System.out.println("根据条件中断连接");
+				
+				try {
+					this.session.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			}
+			s++;
+		}
+		
 	}
 	
 	@OnMessage
@@ -54,9 +77,8 @@ public class WebSocketServer {
 			synchronized (this) {
 				this.session.getBasicRemote().sendText(message);
 			}
-			
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("给客户端发送信息失败");
 		}
 	}
 }

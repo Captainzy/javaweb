@@ -9,33 +9,19 @@ import javax.websocket.server.PathParam;
 @ClientEndpoint
 public class WebSocketClient {
 	
-	private Session session;
-	
 	public WebSocketClient(){}
-	
-	public WebSocketClient(Session session){
-		this.session = session;
-	}
-	
-	@OnOpen
-	public void onOpen (Session session) {
-		try {
-			session.getBasicRemote().sendText ("服务端你好");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	@OnMessage
 	public void onMessage(String message){
-		System.out.println("这是服务端返回的消息："+message);
+		System.out.println(message);
 	}
 	
 	@OnClose
-	public void onClose(){
+	public void onClose(Session session){
 		try {
-			this.session.close();
+			session.close();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -44,14 +30,26 @@ public class WebSocketClient {
 	public void onError(Throwable error){
 		error.printStackTrace();
 	}
+	
+	public void sendMessage(Session session,String message){
+		try {
+			session.getBasicRemote().sendText(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
 		WebSocketContainer container = null;
 		Session session = null;
 		try {
 			container = ContainerProvider.getWebSocketContainer(); 
 			session = container.connectToServer(WebSocketClient.class, URI.create("ws://localhost:8181/javaweb/websocketServer"));
-			WebSocketClient client = new WebSocketClient(session);
-			client.onOpen(session);
+			session.setMaxIdleTimeout(1473411113);
+			
+			WebSocketClient client = new WebSocketClient();
+			client.sendMessage(session, "服务端你好，第一次访问");
+           // client.onClose(session);
 		} catch (DeploymentException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
