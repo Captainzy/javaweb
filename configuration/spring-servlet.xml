@@ -5,9 +5,11 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 	
 	<!-- 激活bean的注解配置 -->
@@ -51,4 +53,10 @@
 			<bean class="springFramework.interceptor.TestInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors> 
+	
+	<websocket:handlers>
+		<websocket:mapping handler="" path=""/>
+	</websocket:handlers>
+	
+	<bean id="myHandler" class="springFramework.websocket.MyHandler"></bean>
 </beans>

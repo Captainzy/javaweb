@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
-public class WebSessionUtil {
+public class WebSocketSessionUtil {
 	private static final Map<String,WebSocketSession> wssMap = new HashMap<String,WebSocketSession>();
 	
 	public static void add(String wssName,WebSocketSession session){
