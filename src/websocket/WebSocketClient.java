@@ -18,12 +18,11 @@ public class WebSocketClient {
 	
 	@OnClose
 	public void onClose(Session session){
-		try {
-			session.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			session.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	@OnError
@@ -45,8 +44,6 @@ public class WebSocketClient {
 		try {
 			container = ContainerProvider.getWebSocketContainer(); 
 			session = container.connectToServer(WebSocketClient.class, URI.create("ws://localhost:8181/javaweb/websocketServer"));
-			session.setMaxIdleTimeout(1473411113);
-			
 			WebSocketClient client = new WebSocketClient();
 			client.sendMessage(session, "服务端你好，第一次访问");
            // client.onClose(session);
