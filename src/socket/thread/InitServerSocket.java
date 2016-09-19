@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,7 +15,8 @@ import java.util.concurrent.Executors;
 public class InitServerSocket implements Runnable {
 	private ServerSocket server;
 	private static final ExecutorService es = Executors.newFixedThreadPool(10);
-	private static Map<String,ThreadHandleSocket> handleSocketMap = new HashMap<String,ThreadHandleSocket>();
+	//private static Map<String,ThreadHandleSocket> handleSocketMap = new HashMap<String,ThreadHandleSocket>();
+	private static List<ThreadHandleSocket> handleSocketList = new LinkedList<ThreadHandleSocket>();
 	public InitServerSocket(){
 		int port = 8899;
 		try {
@@ -23,13 +26,12 @@ public class InitServerSocket implements Runnable {
 		}
 	}
 
-	public static Map<String, ThreadHandleSocket> getHandleSocketMap() {
-		return handleSocketMap;
+	public static List<ThreadHandleSocket> getHandleSocketList() {
+		return handleSocketList;
 	}
 
-
-	public static void setHandleSocketMap(Map<String, ThreadHandleSocket> handleSocketMap) {
-		InitServerSocket.handleSocketMap = handleSocketMap;
+	public static void setHandleSocketList(List<ThreadHandleSocket> handleSocketList) {
+		InitServerSocket.handleSocketList = handleSocketList;
 	}
 
 	@Override
@@ -42,18 +44,26 @@ public class InitServerSocket implements Runnable {
 						client = server.accept();
 						ThreadHandleSocket ths = new ThreadHandleSocket(client);
 						es.execute(ths);
-						handleSocketMap.put(String.valueOf((handleSocketMap.size()+1)), ths);
+						//handleSocketMap.put(String.valueOf((handleSocketMap.size()+1)), ths);
+						handleSocketList.add(ths);
 						
 						String s = "";
-						for(Map.Entry entry:handleSocketMap.entrySet()){
-							ThreadHandleSocket hs = (ThreadHandleSocket) entry.getValue();
+						for(int i = 0;i<handleSocketList.size();i++){
+							ThreadHandleSocket hs = handleSocketList.get(i);
 							if(hs.getClient().isClosed()){
-								s = (String) entry.getKey();
+								handleSocketList.remove(i);
 							}
 						}
-						handleSocketMap.remove(s);
-						
-						System.out.println("当前连接数："+handleSocketMap.size());
+//						for(Map.Entry entry:handleSocketMap.entrySet()){
+//							ThreadHandleSocket hs = (ThreadHandleSocket) entry.getValue();
+//							if(hs.getClient().isClosed()){
+//								s = (String) entry.getKey();
+//							}
+//						}
+//						handleSocketMap.remove(s);
+//						
+//						System.out.println("当前连接数："+handleSocketMap.size());
+						System.out.println("当前连接数："+handleSocketList.size());
 					}
 				} catch (IOException e) {
 					try {

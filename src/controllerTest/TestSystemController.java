@@ -51,17 +51,26 @@ public class TestSystemController {
 			
 			InitServerSocket iss = (InitServerSocket) request.getServletContext().getAttribute("serverSocket");
 			String str = "";
-			for(Map.Entry entry:iss.getHandleSocketMap().entrySet()){
-				ThreadHandleSocket hs = (ThreadHandleSocket) entry.getValue();
+//			for(Map.Entry entry:iss.getHandleSocketMap().entrySet()){
+//				ThreadHandleSocket hs = (ThreadHandleSocket) entry.getValue();
+//				if(hs.getClient().isClosed()){
+//					str += entry.getKey() + "  关闭\n";
+//
+//				}else{
+//					str += entry.getKey() + "  打开\n";
+//				}
+//			}
+//			str += "当前连接数："+iss.getHandleSocketMap().size();
+			
+			for(int i = 0;i<iss.getHandleSocketList().size();i++){
+				ThreadHandleSocket hs = iss.getHandleSocketList().get(i);
 				if(hs.getClient().isClosed()){
-					str += entry.getKey() + "  关闭\n";
-
+					str += "  关闭\n";
 				}else{
-					str += entry.getKey() + "  打开\n";
+					str += "  打开\n";
 				}
 			}
-			str += "当前连接数："+iss.getHandleSocketMap().size();
-			
+			str += "当前连接数："+iss.getHandleSocketList().size();
 		return str;
 	}
 	
@@ -93,6 +102,18 @@ public class TestSystemController {
 			e.printStackTrace();
 		}
 		return "打开一个局部连接";
+	}
+	
+	@RequestMapping(value="/closeSocket1",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody String closeSocket1(HttpServletRequest request){
+		System.out.println("关闭一个连接");
+		try {
+			socket1.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "关闭一个连接";
 	}
 	
 	@RequestMapping(value="/closeSocket",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)

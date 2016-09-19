@@ -5,6 +5,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import socket.thread.InitServerSocket;
+
 /**
  * @ClassName: ApplicationListenser
  * @Description: TODO(这里用一句话描述这个类的作用)
@@ -28,6 +30,11 @@ public class ApplicationListenser implements ServletContextListener {
 		ApplicationContext appContext = ApplicationContext.getApplicationContext();
 		appContext.register(servletContext);
 		appContext.setBasePath(servletContext.getContextPath());
+		
+		InitServerSocket serverSocket = new InitServerSocket();
+		Thread thread = new Thread(serverSocket);
+		thread.start();
+		sce.getServletContext().setAttribute("serverSocket", serverSocket);
 	}
 	
 }

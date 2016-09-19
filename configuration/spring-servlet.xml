@@ -53,10 +53,10 @@
 			<bean class="springFramework.interceptor.TestInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors> 
-	
+<!-- 	
 	<websocket:handlers>
 		<websocket:mapping handler="" path=""/>
 	</websocket:handlers>
 	
-	<bean id="myHandler" class="springFramework.websocket.MyHandler"></bean>
+	<bean id="myHandler" class="springFramework.websocket.MyHandler"></bean> -->
 </beans>
