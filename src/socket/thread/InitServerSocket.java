@@ -47,13 +47,14 @@ public class InitServerSocket implements Runnable {
 						//handleSocketMap.put(String.valueOf((handleSocketMap.size()+1)), ths);
 						handleSocketList.add(ths);
 						
-						String s = "";
+						
 						for(int i = 0;i<handleSocketList.size();i++){
 							ThreadHandleSocket hs = handleSocketList.get(i);
 							if(hs.getClient().isClosed()){
 								handleSocketList.remove(i);
 							}
 						}
+//						String s = "";
 //						for(Map.Entry entry:handleSocketMap.entrySet()){
 //							ThreadHandleSocket hs = (ThreadHandleSocket) entry.getValue();
 //							if(hs.getClient().isClosed()){
