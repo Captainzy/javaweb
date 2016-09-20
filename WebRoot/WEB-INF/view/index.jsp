@@ -40,20 +40,25 @@
     		alert("发送请求");
     		var url = "${basePath}/Test/getUserInfoNew?userName=ZOUYANG&password=ZOUYANG";
     		document.getElementById("userName").innerHTML = "23";
-    		alert(url);
-    		$.ajax({
+    		//jquery ajax
+    		/* $.ajax({
     			url:url,
     			data:null,
     			type:"GET",
-    			dataType:"json"
+    			dataType:"json",
     			success:function(rs){
     				
     				$("#userName").innerHTML = "${userName}";
     				$("#password").innerHTML = "${password}";
     			}
     		
-    		}); 
-    		
+    		}); */ 
+    		//原生JS ajax
+    		var xmlhttp = new XMLHttpRequest();
+    		xmlhttp.open("POST",url,true);
+    		var data = "username=zouyang&password=123";
+    		xmlhttp.send(data);
+    		var resultData = xmlhttp.responseText;
     	}
     	
     </script>
