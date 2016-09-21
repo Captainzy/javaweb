@@ -84,8 +84,10 @@ public class Test {
 	
 	@RequestMapping(value="/getUserInfoNew",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getUserInfoNew(HttpServletRequest request){
-		request.setAttribute("userName", request.getParameter("userName"));
-		request.setAttribute("password", request.getParameter("password"));
+		String userName = request.getParameter("userName");
+		String password = request.getParameter("password");
+		request.setAttribute("userName", userName);
+		request.setAttribute("password", password);
 		return "success";
 	}
 	

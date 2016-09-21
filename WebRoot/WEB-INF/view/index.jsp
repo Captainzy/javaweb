@@ -12,7 +12,7 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<script type="text/javascript" src="${basePath}/StaticResources/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="${basePath}/StaticResources/js/jquery-3.1.0.min.js"></script>
   </head>
   
   <body>
@@ -31,34 +31,32 @@
     	</tbody>
     </table>
     <script>
-    	$(function(){
-    		
-    		
-    	});
     	
     	function submit(){
-    		alert("发送请求");
-    		var url = "${basePath}/Test/getUserInfoNew?userName=ZOUYANG&password=ZOUYANG";
-    		document.getElementById("userName").innerHTML = "23";
+    		alert("发送请求111");
+    		var url = "${basePath}/Test/getUserInfoNew?userName=ZOUYANG&password=1234";
     		//jquery ajax
-    		/* $.ajax({
+    		$.ajax({
     			url:url,
     			data:null,
     			type:"GET",
     			dataType:"json",
     			success:function(rs){
-    				
-    				$("#userName").innerHTML = "${userName}";
-    				$("#password").innerHTML = "${password}";
+    				alert("发送请求111");
+    				alert($("#userName").innerHTML);
+    				/*$("#password").innerHTML = "${password}"; */
     			}
     		
-    		}); */ 
+    		});  
+    		
+    		alert("1234");
     		//原生JS ajax
-    		var xmlhttp = new XMLHttpRequest();
+    		/* var xmlhttp = new XMLHttpRequest();
     		xmlhttp.open("POST",url,true);
     		var data = "username=zouyang&password=123";
     		xmlhttp.send(data);
-    		var resultData = xmlhttp.responseText;
+    		var resultData = xmlhttp.statusText;
+    		alert(resultData); */
     	}
     	
     </script>
