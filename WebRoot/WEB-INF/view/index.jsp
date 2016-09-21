@@ -41,10 +41,15 @@
     			data:null,
     			type:"GET",
     			dataType:"json",
+    			async:true,
     			success:function(rs){
-    				alert("发送请求111");
-    				alert($("#userName").innerHTML);
-    				/*$("#password").innerHTML = "${password}"; */
+    			 	var userName = "${userName}";
+    				var password = "${password}";
+    				$("#userName").text(userName);
+    				$("#password").text(password); 
+    			},
+    			error:function(){
+    				alert("出错了");
     			}
     		
     		});  

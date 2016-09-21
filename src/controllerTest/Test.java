@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+
 import controllerTest.service.TestService;
 import springFramework.typeConversion.Child;
 import springFramework.typeConversion.IntegerToString;
@@ -72,7 +74,7 @@ public class Test {
 		p.setName("Tom");
 		Child child = peopleToAnimal.getConverter(Child.class).convert(p);
 		System.out.println(child.toString());
-		return "测试效果";
+		return JSON.toJSONString("测试效果");
 	}
 	
 	@RequestMapping(value="/getUserInfo",produces="text/html;charset=UTF-8")
@@ -82,18 +84,18 @@ public class Test {
 		return "index";
 	}
 	
-	@RequestMapping(value="/getUserInfoNew",produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/getUserInfoNew",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String getUserInfoNew(HttpServletRequest request){
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		request.setAttribute("userName", userName);
 		request.setAttribute("password", password);
-		return "success";
+		return JSON.toJSONString("success");
 	}
 	
 	@RequestMapping(value="/{varName}/getPathVariable/{varValue}/{methodName}")
 	public @ResponseBody String getPathVariable(String varName,String varValue,String methodName){
 		System.out.println("varName:"+varName+"\nvarValue:"+varValue+"\nmethodName:"+methodName);	
-		return "success";
+		return JSON.toJSONString("success");
 	}
 }
