@@ -31,39 +31,42 @@
     	</tbody>
     </table>
     <script>
-    	
+    	var xmlhttp;
     	function submit(){
     		alert("发送请求111");
     		var url = "${basePath}/Test/getUserInfoNew?userName=ZOUYANG&password=1234";
     		//jquery ajax
-    		$.ajax({
+   /*  		$.ajax({
     			url:url,
     			data:null,
     			type:"GET",
     			dataType:"json",
     			async:true,
     			success:function(rs){
-    			 	var userName = "${userName}";
-    				var password = "${password}";
-    				$("#userName").text(userName);
-    				$("#password").text(password); 
+    			 	alert(rs);
     			},
     			error:function(){
     				alert("出错了");
     			}
     		
-    		});  
+    		});   */
     		
-    		alert("1234");
     		//原生JS ajax
-    		/* var xmlhttp = new XMLHttpRequest();
+    		xmlhttp = new XMLHttpRequest();
     		xmlhttp.open("POST",url,true);
-    		var data = "username=zouyang&password=123";
+    		xmlhttp.onreadystatechange = callback;
+    		var data = "username=ZOUYANG&password=123";
     		xmlhttp.send(data);
-    		var resultData = xmlhttp.statusText;
-    		alert(resultData); */
+    		
     	}
-    	
+    	function callback(){
+    		var rs;
+    		if(xmlhttp.readyState == 4){
+    			rs = xmlhttp.responseText;
+    			var userName = "${TEST}";
+    		}
+    		var password = "${password}";
+    	}
     </script>
   </body>
 </html>

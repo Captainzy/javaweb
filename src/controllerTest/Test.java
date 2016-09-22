@@ -79,17 +79,15 @@ public class Test {
 	
 	@RequestMapping(value="/getUserInfo",produces="text/html;charset=UTF-8")
 	public String getUserInfo(HttpServletRequest request){
-		request.setAttribute("userName", "zouyang");
+		request.getSession().setAttribute("userName", "zouyang");
 		request.setAttribute("password", "12345");
 		return "index";
 	}
 	
 	@RequestMapping(value="/getUserInfoNew",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String getUserInfoNew(HttpServletRequest request){
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
-		request.setAttribute("userName", userName);
-		request.setAttribute("password", password);
+		request.getSession().setAttribute("TEST", "TEST");
+		request.setAttribute("password", "123");
 		return JSON.toJSONString("success");
 	}
 	
