@@ -79,18 +79,22 @@ public class Test {
 	
 	@RequestMapping(value="/getUserInfo",produces="text/html;charset=UTF-8")
 	public String getUserInfo(HttpServletRequest request){
-		request.getSession().setAttribute("userName", "zouyang");
-		request.setAttribute("password", "12345");
+//		request.getSession().setAttribute("userName", "zouyang");
+//		request.setAttribute("password", "12345");
 		return "index";
 	}
 	
 	@RequestMapping(value="/getUserInfoNew",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String getUserInfoNew(HttpServletRequest request){
-		request.getSession().setAttribute("TEST", "TEST");
-		request.setAttribute("password", "123");
+		request.getSession().setAttribute("userName", "TEST");
+//		request.setAttribute("password", "123");
 		return JSON.toJSONString("success");
 	}
-	
+	@RequestMapping(value="/testUserInfo")
+	public @ResponseBody String testUserInfo(HttpServletRequest request){
+		String user = request.getSession().getAttribute("userName").toString();
+		return JSON.toJSONString("success");
+	}
 	@RequestMapping(value="/{varName}/getPathVariable/{varValue}/{methodName}")
 	public @ResponseBody String getPathVariable(String varName,String varValue,String methodName){
 		System.out.println("varName:"+varName+"\nvarValue:"+varValue+"\nmethodName:"+methodName);	

@@ -30,10 +30,10 @@
     		</tr>
     	</tbody>
     </table>
+    <button onclick="ceshi()">测试</button>
     <script>
     	var xmlhttp;
     	function submit(){
-    		alert("发送请求111");
     		var url = "${basePath}/Test/getUserInfoNew?userName=ZOUYANG&password=1234";
     		//jquery ajax
    /*  		$.ajax({
@@ -63,9 +63,18 @@
     		var rs;
     		if(xmlhttp.readyState == 4){
     			rs = xmlhttp.responseText;
-    			var userName = "${TEST}";
+    			var userName = "${userName}";
+    			alert(userName);
     		}
     		var password = "${password}";
+    	}
+    	
+    	function ceshi(){
+    		var url = "${basePath}/Test/testUserInfo";
+    		xmlhttp = new XMLHttpRequest();
+    		xmlhttp.open("POST",url,true);
+    		xmlhttp.send(null);
+    		var user = "${userName}";
     	}
     </script>
   </body>
