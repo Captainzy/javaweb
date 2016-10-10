@@ -1,5 +1,6 @@
 package redis;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -9,6 +10,9 @@ import properties.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisShardInfo;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPool;
 
 public class JedisTest {
 	public static void main(String[] args){
@@ -29,7 +33,6 @@ public class JedisTest {
 		jedis.sadd("user2", "li4");
 		Set<String> userList2 = jedis.smembers("user2");
 		System.out.println("userList2 -->"+userList2);
-		
 		jedis.rpush("tk", "hahatk");
 		jedis.lpop("tk");
 		
@@ -42,9 +45,22 @@ public class JedisTest {
 		config.setMaxTotal(Integer.valueOf(map.get("redis.maxActive")));
 		config.setTestOnBorrow(Boolean.valueOf(map.get("redis.testOnBorrow")));
 		config.setTestOnReturn(Boolean.valueOf(map.get("redis.testOnReturn")));
+		
 		JedisPool jedisPool = new JedisPool(config, "127.0.0.1", 6379);
 		Jedis j = jedisPool.getResource();
 		j.set("test", "this is test of pool");
 		
+		//关闭对象，获取jedis实例使用后要将对象还回去
+		j.close();
+		
+		JedisShardInfo info = new JedisShardInfo("127.0.0.1", 6379);
+		JedisShardInfo info2 = new JedisShardInfo("127.0.0.2",6379);
+		List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
+		shards.add(info);
+		shards.add(info2);
+		ShardedJedisPool sjp = new ShardedJedisPool(config, shards);
+		ShardedJedis shardedJedis = sjp.getResource();
+		shardedJedis.set("shardedJedis", "shardedJedis test");
+		shardedJedis.close();
 	}
 }
