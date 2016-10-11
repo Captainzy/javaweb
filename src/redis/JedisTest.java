@@ -46,7 +46,7 @@ public class JedisTest {
 		config.setTestOnBorrow(Boolean.valueOf(map.get("redis.testOnBorrow")));
 		config.setTestOnReturn(Boolean.valueOf(map.get("redis.testOnReturn")));
 		
-		JedisPool jedisPool = new JedisPool(config, "127.0.0.1", 6379);
+		JedisPool jedisPool = new JedisPool(config, "127.0.0.1", 6379,Integer.valueOf(map.get("redis.timeout")));
 		Jedis j = jedisPool.getResource();
 		j.set("test", "this is test of pool");
 		
