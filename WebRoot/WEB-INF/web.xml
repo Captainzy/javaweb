@@ -19,7 +19,10 @@
   
   <context-param>
   	<param-name>contextConfigLocation</param-name>
-  	<param-value>classpath*:applicationContext.xml</param-value>
+  	<param-value>
+  		classpath*:applicationContext.xml,
+  		classpath*:redis-cluster.xml
+  	</param-value>
   </context-param>
   
   <servlet>
