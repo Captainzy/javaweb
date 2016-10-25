@@ -1,12 +1,9 @@
 package nio;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 
 public class BaseTestNIO {
 	public static void main(String[] args) throws Exception{
