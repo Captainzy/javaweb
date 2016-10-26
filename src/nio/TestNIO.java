@@ -2,10 +2,12 @@ package nio;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.Selector;
 
 public class TestNIO {
 	public static void main(String[] args) throws Exception {
@@ -89,7 +91,7 @@ public class TestNIO {
 		System.out.println(sb);
 	}
 	
-	public static void selectorTest(){
-		
+	public static void selectorTest() throws Exception{
+		Selector selector = Selector.open();
 	}
 }
