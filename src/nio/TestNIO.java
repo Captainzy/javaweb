@@ -4,10 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.nio.channels.SocketChannel;
+import java.util.Iterator;
+import java.util.Set;
 
 public class TestNIO {
 	public static void main(String[] args) throws Exception {
@@ -92,6 +98,32 @@ public class TestNIO {
 	}
 	
 	public static void selectorTest() throws Exception{
+
 		Selector selector = Selector.open();
+		SocketAddress address = new InetSocketAddress("", 8808); 
+		SocketChannel socketChannel = SocketChannel.open(address);
+		socketChannel.configureBlocking(false);//设置为非阻塞模式
+		socketChannel.register(selector, SelectionKey.OP_READ);
+		
+		while(true) {  
+			int readyChannels = selector.select();  
+			if(readyChannels == 0) {
+				continue;  
+			}
+			Set<SelectionKey> selectedKeys = selector.selectedKeys();  
+			Iterator keyIterator = selectedKeys.iterator();  
+			while(keyIterator.hasNext()) {  
+				SelectionKey key = (SelectionKey) keyIterator.next();  
+				if(key.isAcceptable()) {  
+					// a connection was accepted by a ServerSocketChannel.  
+				} else if (key.isConnectable()) {  
+					// a connection was established with a remote server.  
+				} else if (key.isReadable()) {  
+					// a channel is ready for reading  
+				} else if (key.isWritable()) {  
+					// a channel is ready for writing  
+				}
+			}
+		}
 	}
 }
