@@ -11,6 +11,7 @@ import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
@@ -19,7 +20,9 @@ public class TestNIO {
 	public static void main(String[] args) throws Exception {
 		//baseTest();
 		//scannerAndGatherTest();
-		transferTest();
+		//transferTest();
+		selectorTest();
+		
 	}
 	
 	public static void baseTest() throws Exception{
@@ -100,30 +103,47 @@ public class TestNIO {
 	public static void selectorTest() throws Exception{
 
 		Selector selector = Selector.open();
-		SocketAddress address = new InetSocketAddress("", 8808); 
-		SocketChannel socketChannel = SocketChannel.open(address);
+		SocketAddress address = new InetSocketAddress("127.0.0.1", 9969); 
+		SocketChannel socketChannel = SocketChannel.open();
+		socketChannel.connect(address);
 		socketChannel.configureBlocking(false);//设置为非阻塞模式
-		socketChannel.register(selector, SelectionKey.OP_READ);
-		
+		int interestKey = SelectionKey.OP_CONNECT | SelectionKey.OP_READ | SelectionKey.OP_WRITE;//客户端不能OP_ACCEPT
+		socketChannel.register(selector, SelectionKey.OP_CONNECT );
 		while(true) {  
 			int readyChannels = selector.select();  
 			if(readyChannels == 0) {
-				continue;  
+				continue;                                                                 
 			}
 			Set<SelectionKey> selectedKeys = selector.selectedKeys();  
 			Iterator keyIterator = selectedKeys.iterator();  
 			while(keyIterator.hasNext()) {  
 				SelectionKey key = (SelectionKey) keyIterator.next();  
-				if(key.isAcceptable()) {  
-					// a connection was accepted by a ServerSocketChannel.  
-				} else if (key.isConnectable()) {  
-					// a connection was established with a remote server.  
+				if (key.isConnectable()) {  
+					System.out.println("连接到服务端了");
+					writeMessage(key);
 				} else if (key.isReadable()) {  
-					// a channel is ready for reading  
+					System.out.println("接收到服务端的消息了");
 				} else if (key.isWritable()) {  
-					// a channel is ready for writing  
+					System.out.println("可以发送消息到服务端了");
 				}
 			}
 		}
+	} 
+	
+	public static void writeMessage(SelectionKey key) throws Exception{
+		System.out.println("发送消息到服务端");
+		SocketChannel sc = (SocketChannel) key.channel();
+		String path = TestNIO.class.getClassLoader().getResource("").getPath()+"nio/to-nio-data.txt";
+		RandomAccessFile file = new RandomAccessFile(path, "rw");  
+		ByteBuffer b = ByteBuffer.allocate(1024);
+		FileChannel channel = file.getChannel();
+		channel.transferTo(0, channel.size(),sc);
+//		int count = channel.read(b);
+//		while(count!=-1){
+//			b.flip();
+//			sc.write(b);
+//			b.clear();
+//			count = channel.read(b);
+//		}
 	}
 }
