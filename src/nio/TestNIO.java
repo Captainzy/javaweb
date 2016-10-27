@@ -1,17 +1,13 @@
 package nio;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
@@ -103,12 +99,12 @@ public class TestNIO {
 	public static void selectorTest() throws Exception{
 
 		Selector selector = Selector.open();
-		SocketAddress address = new InetSocketAddress("127.0.0.1", 9969); 
 		SocketChannel socketChannel = SocketChannel.open();
+		socketChannel.configureBlocking(false);//设置 SocketChannel 为非阻塞模式（non-blocking mode）.设置之后，就可以在异步模式下调用connect(), read() 和write()了
+		SocketAddress address = new InetSocketAddress("127.0.0.1", 9969); 
 		socketChannel.connect(address);
-		socketChannel.configureBlocking(false);//设置为非阻塞模式
-		int interestKey = SelectionKey.OP_CONNECT | SelectionKey.OP_READ | SelectionKey.OP_WRITE;//客户端不能OP_ACCEPT
-		socketChannel.register(selector, SelectionKey.OP_CONNECT );
+		
+		socketChannel.register(selector, SelectionKey.OP_CONNECT);
 		while(true) {  
 			int readyChannels = selector.select();  
 			if(readyChannels == 0) {
@@ -118,32 +114,18 @@ public class TestNIO {
 			Iterator keyIterator = selectedKeys.iterator();  
 			while(keyIterator.hasNext()) {  
 				SelectionKey key = (SelectionKey) keyIterator.next();  
+				keyIterator.remove();
 				if (key.isConnectable()) {  
 					System.out.println("连接到服务端了");
-					writeMessage(key);
-				} else if (key.isReadable()) {  
-					System.out.println("接收到服务端的消息了");
-				} else if (key.isWritable()) {  
-					System.out.println("可以发送消息到服务端了");
-				}
+					SocketChannel sc = (SocketChannel) key.channel();
+					if(sc.isConnectionPending()){
+						sc.finishConnect();
+					}
+					sc.write(ByteBuffer.wrap(new String("send message to server.").getBytes()));
+					System.out.println("客户端连接成功");
+				} 
 			}
 		}
 	} 
 	
-	public static void writeMessage(SelectionKey key) throws Exception{
-		System.out.println("发送消息到服务端");
-		SocketChannel sc = (SocketChannel) key.channel();
-		String path = TestNIO.class.getClassLoader().getResource("").getPath()+"nio/to-nio-data.txt";
-		RandomAccessFile file = new RandomAccessFile(path, "rw");  
-		ByteBuffer b = ByteBuffer.allocate(1024);
-		FileChannel channel = file.getChannel();
-		channel.transferTo(0, channel.size(),sc);
-//		int count = channel.read(b);
-//		while(count!=-1){
-//			b.flip();
-//			sc.write(b);
-//			b.clear();
-//			count = channel.read(b);
-//		}
-	}
 }
