@@ -1,8 +1,11 @@
 package nio;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -38,13 +41,20 @@ public class TestServerSocketChannel {
 					ByteBuffer b = ByteBuffer.allocate(200);
 					int count = sc.read(b);
 					StringBuffer sb = new StringBuffer();
+					String str = new String(b.array());
+					sb.append(str);
 				
-						String str = new String(b.array());
-						sb.append(str);
-						b.clear();
-						count = sc.read(b);
-					
 					System.out.println(sb);
+					
+					key.interestOps(SelectionKey.OP_WRITE);
+				}else if(key.isWritable()){
+					System.out.println("服务端写信息");
+					String path = TestServerSocketChannel.class.getClassLoader().getResource("").getPath()+"nio/nio-data.txt";
+					RandomAccessFile file = new RandomAccessFile(new File(path), "rw");
+					FileChannel fileChannel = file.getChannel();
+					SocketChannel sc = (SocketChannel) key.channel();
+					fileChannel.transferTo(0, fileChannel.size(), sc);
+					key.cancel();
 				}
 			}
 		}

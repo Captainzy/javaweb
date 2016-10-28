@@ -121,9 +121,19 @@ public class TestNIO {
 					if(sc.isConnectionPending()){
 						sc.finishConnect();
 					}
-					sc.write(ByteBuffer.wrap(new String("send message to server.").getBytes()));
+					sc.write(ByteBuffer.wrap(new String("服务端你好，我是客户端.").getBytes()));
 					System.out.println("客户端连接成功");
-				} 
+					
+					sc.configureBlocking(false);
+					sc.register(selector, SelectionKey.OP_READ);
+				}else if(key.isReadable()){
+					System.out.println("客户端读取服务端信息");
+					SocketChannel sc = (SocketChannel) key.channel();
+					ByteBuffer b = ByteBuffer.allocate(1024);
+					int count = sc.read(b);
+					String str = new String(b.array());
+					System.out.println(str);
+				}
 			}
 		}
 	} 
