@@ -21,7 +21,8 @@
   	<param-name>contextConfigLocation</param-name>
   	<param-value>
   		classpath*:applicationContext.xml,
-  		classpath*:redis-cluster.xml
+  		classpath*:redis-cluster.xml,
+  		classpath*:webservice-beans.xml
   	</param-value>
   </context-param>
   
@@ -39,6 +40,18 @@
   	<url-pattern>/</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+      <servlet-name>CXFServlet</servlet-name>
+      <servlet-class>
+         org.apache.cxf.transport.servlet.CXFServlet
+      </servlet-class>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>CXFServlet</servlet-name>
+      <url-pattern>/CXF/*</url-pattern>
+   </servlet-mapping>
+   
   <filter>
   	<filter-name>characterEncodingFilter</filter-name>
   	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

@@ -1,4 +1,4 @@
-package webservice.ws1;
+package webservice.ws1.server;
 
 public class TestBean {
 	private String name;
