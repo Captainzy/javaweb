@@ -8,6 +8,17 @@ public class Order {
     private String itemID;
     private int qty;
     private double price;
+    
+	public Order() {
+		super();
+	}
+	public Order(String customerID, String itemID, int qty, double price) {
+		super();
+		this.customerID = customerID;
+		this.itemID = itemID;
+		this.qty = qty;
+		this.price = price;
+	}
 	public String getCustomerID() {
 		return customerID;
 	}
