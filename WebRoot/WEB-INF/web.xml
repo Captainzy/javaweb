@@ -22,7 +22,8 @@
   	<param-value>
   		classpath*:applicationContext.xml,
   		classpath*:redis-cluster.xml,
-  		classpath*:webservice-beans.xml
+  		classpath*:webservice-server-beans.xml,
+  		classpath*:webservice-client-beans.xml
   	</param-value>
   </context-param>
   
