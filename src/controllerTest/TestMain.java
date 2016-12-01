@@ -40,7 +40,6 @@ public class TestMain {
 		list.add("fdasfdas");
 		list.add(123);
 		justTest(list.toArray());
-		
 	}
 	
 	public static void justTest(Object... objs){
