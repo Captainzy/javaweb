@@ -100,4 +100,5 @@ public class Test {
 		System.out.println("varName:"+varName+"\nvarValue:"+varValue+"\nmethodName:"+methodName);	
 		return JSON.toJSONString("success");
 	}
+
 }
