@@ -1,4 +1,6 @@
-package proxyPractice.basic;
+package proxyPractice;
+
+import java.lang.reflect.Proxy;
 
 /**
  * @author zouyang
@@ -14,18 +16,28 @@ package proxyPractice.basic;
  *		代理角色所代表的真实对象，是我们最终要引用的对象
  */
 public class ProxyTest {
-
 	public static void main(String[] args) {
-		//通过对象直接实现
+		
+		System.out.println("通过对象直接调用---------");
 		test(new RealObject());
-		//通过代理对象间接实现
+		
+		System.out.println("通过代理对象调用---------");
 		test(new ProxyObject(new RealObject()));
-			
+		
+		ComInterface proxy = (ComInterface) Proxy.newProxyInstance(ComInterface.class.getClassLoader(),
+				new Class[] { ComInterface.class }, new DynamicProxyObject(new RealObject()));
+		System.out.println("动态调用代理--------");
+		test(proxy);
+		
+		System.out.println("通过代理工厂类动态调用---------");
+		ComInterface dynamicProxy = (ComInterface) DynamicProxyFactory.getProxy(ComInterface.class.getClassLoader(),
+				new RealObject());
+
+		test(dynamicProxy);
 	}
-	
-	public static void test(ComInterface obj){
+
+	public static void test(ComInterface obj) {
 		obj.methodA();
 		obj.methodB();
 	}
-
 }
