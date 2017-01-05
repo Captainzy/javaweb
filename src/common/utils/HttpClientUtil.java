@@ -33,7 +33,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 public class HttpClientUtil {
-	// post�ύ������Ϊ�ַ�
+	// //post请求
 	public static String httpPost(String url, Map<String, String> map) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
@@ -71,7 +71,7 @@ public class HttpClientUtil {
 		return result;
 	}
 
-	// get����
+	// get请求
 	public static String httpGet(String url) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(url);
@@ -92,7 +92,7 @@ public class HttpClientUtil {
 		return result;
 	}
 
-	// post�ύ������Ϊ��ͬ����
+	//  post提交，参数为不同类型
 	public static String postObject(String url, List<File> listFile, Map<String, String> map) throws FileNotFoundException {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
