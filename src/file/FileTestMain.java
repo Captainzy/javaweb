@@ -11,7 +11,6 @@ import common.utils.HttpClientUtil;
 
 public class FileTestMain {
 	public static void main(String[] args){
-
 		String url = "http://localhost:8080/Forward_Analytical/upload.do";
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("loginName", "silence");
