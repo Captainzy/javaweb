@@ -18,27 +18,8 @@ public class Producer implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
-			synchronized (pwh) {
-				if (pwh.getCurAmount() >= pwh.getCapacity()) {
-					try {
-						System.out.println("厂库满了，等等再生产");
-						wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				} else {
-					System.out.println("生产了一个产品");
-					try {
-						Thread.sleep(1000);// 模拟生产时间
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					pwh.setCurAmount(pwh.getCurAmount() + 1);
-
-				}
-			}
+		for(int i = 0;i<10;i++){
+			pwh.produce();
 		}
 	}
 }

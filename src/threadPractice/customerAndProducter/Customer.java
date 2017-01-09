@@ -14,20 +14,8 @@ public class Customer extends Thread{
 	}
 	@Override
 	public void run() {
-		while(true){
-			synchronized(pwh){
-				if(pwh.getCapacity()>0){
-					System.out.println("消费者："+name+"买了一个商品");
-					pwh.setCurAmount(pwh.getCurAmount()-1);
-				}else{
-					System.out.println("没有货了，先等等");
-					try {
-						wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
+		for(int i = 0;i<10;i++){
+			pwh.sale();
 		}
 	}
 
