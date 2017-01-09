@@ -1,7 +1,11 @@
 package threadPractice.interaction;
 import java.io.IOException;
 import java.util.Stack;
-
+/**
+ * @author zouyang
+ * @time 2017年1月9日 上午11:25:54
+ * @description 线程交互
+ */
 public class Ts {
 
 	public static void main(String[] args) throws CloneNotSupportedException, ClassNotFoundException, IOException {
