@@ -36,6 +36,5 @@ public class FileTestMain {
 			e.printStackTrace();
 		}
 		System.out.println(result);
-		
 	}
 }
