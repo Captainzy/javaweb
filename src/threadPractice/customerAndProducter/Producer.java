@@ -8,18 +8,18 @@ package threadPractice.customerAndProducter;
 public class Producer implements Runnable {
 	private ProductWarehouse pwh;
 	private String name;
+	private int count;
 	Producer() {
 	}
 
-	Producer(String name,ProductWarehouse pwh) {
+	Producer(String name,int count,ProductWarehouse pwh) {
 		this.pwh = pwh;
 		this.name = name;
+		this.count = count;
 	}
 
 	@Override
 	public void run() {
-		for(int i = 0;i<10;i++){
-			pwh.produce();
-		}
+		pwh.produce(this.count);
 	}
 }

@@ -7,16 +7,16 @@ package threadPractice.customerAndProducter;
 public class Customer extends Thread{
 	private ProductWarehouse pwh;
 	private String name;
+	private int count;
 	Customer(){}
-	Customer(String name,ProductWarehouse pwh){
+	Customer(String name,int count,ProductWarehouse pwh){
 		this.pwh = pwh;
 		this.name = name;
+		this.count = count;
 	}
 	@Override
 	public void run() {
-		for(int i = 0;i<10;i++){
-			pwh.sale();
-		}
+		pwh.sale(this.count);
 	}
 
 }
