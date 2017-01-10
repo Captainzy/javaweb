@@ -1,5 +1,9 @@
 package threadPractice.customerAndProducter;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 public class TestMain {
 	public static void main(String[] args) {
 		ProductWarehouse pwh = new ProductWarehouse();
@@ -8,7 +12,6 @@ public class TestMain {
 		Customer c3 = new Customer("C3", 30, pwh);
 		Customer c4 = new Customer("C4", 15, pwh);
 		Customer c5 = new Customer("C5", 14, pwh);
-
 		Thread t1 = new Thread(new Producer("p1", 20, pwh));
 		Thread t2 = new Thread(new Producer("p2", 15, pwh));
 
@@ -23,6 +26,6 @@ public class TestMain {
 
 		t1.start();
 		t2.start();
-
+		
 	}
 }
