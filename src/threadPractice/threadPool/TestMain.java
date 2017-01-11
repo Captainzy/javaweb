@@ -24,7 +24,7 @@ public class TestMain {
 				 * submit传递的参数是实现了Runnable接口的类或者实现了Callable<?>接口的类，但是只有参数是实现了Callable<?>接口的类时才有返回值。
 				 * Callable<?>接口的call方法就相当于实现Runnable接口的run方法
 				 */
-				//es.execute(new DealThread(name));
+				// es.execute(new DealThread(name));
 				f = es.submit(new DealThread(name));
 				list.add(f);
 			}
@@ -45,7 +45,7 @@ public class TestMain {
 			} catch (ExecutionException e) {
 				e.printStackTrace();
 			}
-			System.out.println(result);
+			System.out.println("线程的返回值是：" + result);
 		}
 	}
 }
