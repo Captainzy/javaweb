@@ -8,12 +8,12 @@ public class Customer implements Runnable {
 	private Condition c;
 	private BusinessWindow bw;
 	private boolean isVip;
-
+	private String name;
 	public Customer() {
 	}
 
-	public Customer(ReentrantLock lock, Condition c, BusinessWindow bw, boolean isVip) {
-		super();
+	public Customer(String name,ReentrantLock lock, Condition c, BusinessWindow bw, boolean isVip) {
+		this.name = name;
 		this.lock = lock;
 		this.c = c;
 		this.bw = bw;
@@ -31,10 +31,14 @@ public class Customer implements Runnable {
 			e.printStackTrace();
 		}
 		if (isVip) {
-			System.out.println("VIP客户办理业务");
+			System.out.println("VIP客户办理业务。。。。");
+			bw.handleBusiness();
 		} else {
-			System.out.println("普通客户办理业务");
+			System.out.println("普通客户办理业务。。。。办理结束提醒窗口办理下一个客户的业务");
+			bw.handleBusiness();
 		}
+		System.out.println(name+"办理结束提醒窗口办理下一个客户的业务");
+		bw.getBwc().signal();
 		lock.unlock();
 	}
 

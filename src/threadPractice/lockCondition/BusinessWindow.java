@@ -1,9 +1,12 @@
 package threadPractice.lockCondition;
 
 import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BusinessWindow implements Runnable {
 	private boolean dealVip;
+	private ReentrantLock lock;
+	private Condition bwc;
 	private Condition cvip;
 	private Condition c;
 	private int num;// vip等待人数
@@ -12,8 +15,10 @@ public class BusinessWindow implements Runnable {
 	BusinessWindow() {
 	}
 
-	public BusinessWindow(boolean dealVip, Condition cvip, Condition c, int num, int curNum) {
+	public BusinessWindow(boolean dealVip,ReentrantLock lock,Condition bwc, Condition cvip, Condition c, int num, int curNum) {
 		this.dealVip = dealVip;
+		this.lock = lock;
+		this.bwc = bwc;
 		this.cvip = cvip;
 		this.c = c;
 		this.num = num;
@@ -28,7 +33,6 @@ public class BusinessWindow implements Runnable {
 		this.dealVip = dealVip;
 	}
 
-	
 	public int getCurNum() {
 		return curNum;
 	}
@@ -38,35 +42,49 @@ public class BusinessWindow implements Runnable {
 	}
 
 	public void checkNum() {
-		if (num > 0) {
-			dealVip = true;
-			this.num--;
-		} else {
-			dealVip = false;
-		}
-		handleBusiness();
+		lock.lock();
+			
+		lock.unlock();
+	}
+
+	
+	public Condition getBwc() {
+		return bwc;
 	}
 
 	// 处理业务
 	public void handleBusiness() {
 		if (curNum > 0) {
 			if (dealVip) {
-				cvip.signalAll();
 				System.out.println("正在办理vip客户业务");
 			} else {
-				c.signalAll();
 				System.out.println("正在办理普通客户业务");
 			}
 			this.curNum--;
 		}
-
 	}
 
 	@Override
 	public void run() {
 		System.out.println("----------开始办理业务");
 		while (true) {
-			checkNum();
+			lock.lock();
+			if (curNum > 0) {
+				if (num > 0) {
+					dealVip = true;
+					cvip.signal();
+					this.num--;
+				} else {
+					dealVip = false;
+					c.signal();
+				}
+			}
+			try {
+				bwc.await();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			lock.unlock();
 		}
 	}
 
