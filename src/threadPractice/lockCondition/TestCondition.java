@@ -22,7 +22,7 @@ public class TestCondition {
 		Condition cvip = lock.newCondition();
 		Condition c = lock.newCondition();
 		List<Customer> list = new ArrayList<Customer>();
-		BusinessWindow bw = new BusinessWindow(true,lock,bwc,cvip, c, 3,9);
+		BusinessWindow bw = new BusinessWindow(true,lock,bwc,cvip, c, 2,6);
 
 		list.add(new Customer("vip_c1",lock, cvip, bw, true));
 		list.add(new Customer("c1",lock, c, bw, false));
