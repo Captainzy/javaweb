@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import duanxin.constant.BaudsConstant;
+import duanxin.constant.SerialPortConstants;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
@@ -42,7 +42,7 @@ public class SerialPortsUtil {
 
 	public static List<Map<String,String>> helloSerialPortTest(CommPortIdentifier temPort,List<Map<String,String>> list)
 			throws UnsupportedCommOperationException, IOException {
-			for (int n = 0; n < BaudsConstant.BAUD_RATE_ARRAY.length; n++) {
+			for (int n = 0; n < SerialPortConstants.BAUD_RATE_ARRAY.length; n++) {
 				/**
 				 * Map里包含串口的基本信息
 				 * 串口名serialPortName、比特率baudRate、所有者curOwner，还需其他信息可调整程序获取信息
@@ -56,7 +56,7 @@ public class SerialPortsUtil {
 				}
 				serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN);
 
-				serialPort.setSerialPortParams(BaudsConstant.BAUD_RATE_ARRAY[n], // 波特率
+				serialPort.setSerialPortParams(SerialPortConstants.BAUD_RATE_ARRAY[n], // 波特率
 						SerialPort.DATABITS_8, // 数据位数
 						SerialPort.STOPBITS_1, // 停止位
 						SerialPort.PARITY_NONE);// 奇偶位
@@ -78,11 +78,13 @@ public class SerialPortsUtil {
 					System.out.println("成功收到指令返回值。");
 					m = new HashMap<String,String>();
 					//波特率
-					m.put("baudRate",String.valueOf(BaudsConstant.BAUD_RATE_ARRAY[n]));
+					m.put("baudRate",String.valueOf(SerialPortConstants.BAUD_RATE_ARRAY[n]));
 					//串口名
 					m.put("serialPortName", serialPort.getName());
 					//当前所有者
 					m.put("curOwner", temPort.getCurrentOwner());
+					//短信猫设备提供商
+					m.put("manuFacturer", SerialPortConstants.MANUFACTURER);
 					System.out.println(sb.toString());
 				}
                 inputStream.close();  
