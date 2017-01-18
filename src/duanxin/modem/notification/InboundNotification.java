@@ -9,12 +9,12 @@ import org.smslib.Message.MessageTypes;
  * @time 2017年1月17日 下午2:19:49
  * @description 接收短信监听器
  */
-public class InboundMessageNotification implements IInboundMessageNotification  {
+public class InboundNotification implements IInboundMessageNotification  {
 
 	@Override
 	public void process(AGateway gateway, MessageTypes msgType, InboundMessage inboundMsg) {
 		if(MessageTypes.INBOUND.equals(msgType)){
-			System.out.println("收到短信："+inboundMsg.getText());
+			System.out.println("收到短信："+inboundMsg.getText()+"\n发件人："+inboundMsg.getOriginator());
 			try {
 				//读取信息后删除缓存消息
 				gateway.deleteMessage(inboundMsg);
