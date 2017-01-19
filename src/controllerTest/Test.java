@@ -1,5 +1,8 @@
 package controllerTest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import common.utils.HttpClientUtil;
 import controllerTest.service.TestService;
 import springFramework.typeConversion.Child;
 import springFramework.typeConversion.IntegerToString;
@@ -99,6 +103,27 @@ public class Test {
 	public @ResponseBody String getPathVariable(String varName,String varValue,String methodName){
 		System.out.println("varName:"+varName+"\nvarValue:"+varValue+"\nmethodName:"+methodName);	
 		return JSON.toJSONString("success");
+	}
+	
+	@RequestMapping(value="/testDuanxin",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody String testDuanxin(){
+		String[] numbers = {"18280383754","18113152327"};
+		String msg = "可以出发了";
+		StringBuffer jsonStr = new StringBuffer("[");
+		for(int i = 0;i<numbers.length;i++){
+			String str = "{\"msg\":\""+msg+"\",\"phone\":\""+numbers[i]+"\"}";
+			if(i < numbers.length-1){
+				jsonStr.append(str+",");
+			}else{
+				jsonStr.append(str+"]");
+			}
+		}
+		System.out.println(jsonStr);
+		Map<String,String> m = new HashMap<String,String>();
+		m.put("infoList", "123");
+		String result = HttpClientUtil.httpPost("http://192.168.6.181:8080/duanxin/sendMsg/sendMsgToGroup", m);
+		System.out.println(jsonStr.toString());
+		return result;
 	}
 
 }
