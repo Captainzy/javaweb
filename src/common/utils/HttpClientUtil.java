@@ -40,7 +40,7 @@ public class HttpClientUtil {
 		HttpEntity postEntity = null;
 		String result = null;
 		try {
-			postEntity = new UrlEncodedFormEntity(list);
+			postEntity = new UrlEncodedFormEntity(list,"UTF-8");
 			httpPost.setEntity(postEntity);
 			response = httpClient.execute(httpPost);
 

@@ -108,7 +108,7 @@ public class Test {
 	@RequestMapping(value="/testDuanxin",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String testDuanxin(){
 		String[] numbers = {"18280383754","18113152327"};
-		String msg = "可以出发了";
+		String msg = "到达目的地后原地等待。。。";
 		StringBuffer jsonStr = new StringBuffer("[");
 		for(int i = 0;i<numbers.length;i++){
 			String str = "{\"msg\":\""+msg+"\",\"phone\":\""+numbers[i]+"\"}";
@@ -120,7 +120,8 @@ public class Test {
 		}
 		System.out.println(jsonStr);
 		Map<String,String> m = new HashMap<String,String>();
-		m.put("infoList", "123");
+		m.put("userMsgList", jsonStr.toString());
+//		m.put("inforList", "123456");
 		String result = HttpClientUtil.httpPost("http://192.168.6.181:8080/duanxin/sendMsg/sendMsgToGroup", m);
 		System.out.println(jsonStr.toString());
 		return result;

@@ -36,10 +36,15 @@ public class MessageController {
 	 */
 	@RequestMapping(value="/sendMsgToGroup",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String sendMsgToGroup(
-			@RequestParam(value="inforList",required=true,defaultValue="")String inforList){
+			@RequestParam(value="userMsgList",required=true,defaultValue="")String userMsgList){
 		List<UserMsg> list = new ArrayList<UserMsg>();
-		list = JSON.parseArray(inforList, UserMsg.class);
-		String result = ms.sendMsgToGroup(list);
+		list = JSON.parseArray(userMsgList, UserMsg.class);
+		String result = "";
+		if(list.size()>0){
+			result = ms.sendMsgToGroup(list);
+		}else{
+			result = "没有信心内容和接收对象!!";
+		}
 		return result;
 	}
 }
