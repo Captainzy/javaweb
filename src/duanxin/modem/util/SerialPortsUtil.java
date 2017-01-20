@@ -106,4 +106,10 @@ public class SerialPortsUtil {
 			System.out.println("通信失败");
 			return list;
 	}
+	
+	public static boolean resetMessageCat(){
+		//使用AT指令来进行远程复位重启短信猫设备。AT+CFUN=1是重启短信猫软件堆栈和硬件堆栈的指令。
+		//程序员通过超级终端来进行执行就可以了。(注意：执行后稍等30秒左右再进行其他操作)
+		return true;
+	}
 }
