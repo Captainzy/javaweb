@@ -6,6 +6,11 @@ import java.util.Map;
 import duanxin.modem.service.ModemService;
 import duanxin.modem.util.SerialPortsUtil;
 
+/**
+ * @author zouyang
+ * @time 2017年1月20日 下午12:05:09
+ * @description 使用spring quartz调度器，让短信猫在特定的时间复位重启，防止短信猫长时间工作崩溃
+ */
 public class TaskRestartCat {
 	public void restartMessageCat(){
 		new Thread(new Runnable(){
