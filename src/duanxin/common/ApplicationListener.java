@@ -22,7 +22,7 @@ public class ApplicationListener implements ServletContextListener {
     }
 
     public void contextDestroyed(ServletContextEvent sce)  { 
-    	ModemService.stopModemService();
+    	ModemService.getInstance().stopModemService();
     }
 
     public void contextInitialized(ServletContextEvent sce)  {
@@ -33,8 +33,8 @@ public class ApplicationListener implements ServletContextListener {
     	if(list.size()>0){
 	    	for(int i = 0;i<5;i++){
 	    		//启动短信猫服务，如果启动失败则重新启动，最多重启5次
-	    		System.out.println("开始启动短信猫");
-	    		flag = ModemService.startModelService(list);
+	    		System.out.println("开始初始化短信猫");
+	    		flag = ModemService.initModelService(list);
 	    		if(flag){
 	    			break;
 	    		}

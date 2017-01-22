@@ -1,8 +1,6 @@
 package duanxin.modem.service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +15,10 @@ import org.smslib.Message.MessageEncodings;
 import org.smslib.modem.SerialModemGateway;
 
 import duanxin.modem.constant.SerialPortConstants;
-import duanxin.modem.notification.InboundNotification;
 import duanxin.modem.notification.OutboundNotification;
 
 public class ModemService {
-	public static Service srv;
+	private static Service srv;
 	private static ModemService msu;
 	static {
 		srv = Service.getInstance();
@@ -43,22 +40,22 @@ public class ModemService {
 	/**
 	 * @author zouyang
 	 * @time 2017年1月17日 下午1:55:11
-	 * @description 开启短信猫服务
+	 * @description 初始化短信猫服务
 	 * @param list
 	 *            可用串口列表
 	 *  猫服务启动成功则返回true,否则返回false;
 	 */
-	public static boolean startModelService(List<Map<String, String>> list) {
+	public static boolean initModelService(List<Map<String, String>> list) {
 		// 将猫服务中默认的网关全部移除
-		Collection<AGateway> clt = srv.getGateways();
-		Iterator<AGateway> it = clt.iterator();
-		while (it.hasNext()) {
-			try {
-				srv.removeGateway(it.next());
-			} catch (GatewayException e) {
-				e.printStackTrace();
-			}
-		}
+//		Collection<AGateway> clt = srv.getGateways();
+//		AGateway[] gatewayList = new AGateway[clt.size()];
+//		for(int i = 0;i<gatewayList.length;i++) {
+//			try {
+//				srv.removeGateway(gatewayList[i]);
+//			} catch (GatewayException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		if(SerialPortConstants.INBOUNDMESSAGE){
 			try {
@@ -77,7 +74,7 @@ public class ModemService {
 		srv.setOutboundMessageNotification(new OutboundNotification());
 		// 根据串口信息列表，生成网关，添加到猫服务中
 		for (Map<String, String> m : list) {
-			SerialModemGateway gateway = new SerialModemGateway("modelPort." + m.get("serialPortName"),
+			AGateway gateway = new SerialModemGateway("modelPort." + m.get("serialPortName"),
 					m.get("serialPortName"), Integer.valueOf(m.get("baudRate")), m.get("manufacturer"), null);
 			gateway.setInbound(SerialPortConstants.INBOUNDMESSAGE);// 是否接收短信
 			gateway.setOutbound(SerialPortConstants.OUTBOUNDMESSAGE);// 是否发送短信
@@ -101,7 +98,7 @@ public class ModemService {
 		}
 	}
 
-	public static void stopModemService() {
+	public void stopModemService() {
 		try {
 			if (srv != null) {
 				srv.stopService();
@@ -110,7 +107,16 @@ public class ModemService {
 			e.printStackTrace();
 			System.out.println("关闭短信猫服务失败。。。。");
 		}
-		System.out.println("短信猫已经成功关闭。。。。");
+	}
+	
+	public boolean startModemService(){
+		try {
+			srv.startService();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public void sendMessageToOne(String msg, String number) {

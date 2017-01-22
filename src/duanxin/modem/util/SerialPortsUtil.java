@@ -103,13 +103,92 @@ public class SerialPortsUtil {
                 	list.add(m);
                 }
 			}
-			System.out.println("通信失败");
 			return list;
 	}
 	
 	public static boolean resetMessageCat(){
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		Enumeration<CommPortIdentifier> portList = CommPortIdentifier.getPortIdentifiers();
+		CommPortIdentifier temPort;
+		while (portList.hasMoreElements()) {
+			temPort = portList.nextElement();
+			if (temPort.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+				SerialPortsUtil.resetSerialPorts(temPort,list,'1');
+			}
+		}
+		return true;
+	}
+	
+	public static boolean stopMessageCat(){
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		Enumeration<CommPortIdentifier> portList = CommPortIdentifier.getPortIdentifiers();
+		CommPortIdentifier temPort;
+		while (portList.hasMoreElements()) {
+			temPort = portList.nextElement();
+			if (temPort.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+				SerialPortsUtil.resetSerialPorts(temPort,list,'0');
+			}
+		}
+		return true;
+	}
+	
+	public static void resetSerialPorts(CommPortIdentifier temPort,List<Map<String,String>> list,char chr){
 		//使用AT指令来进行远程复位重启短信猫设备。AT+CFUN=1是重启短信猫软件堆栈和硬件堆栈的指令。
 		//程序员通过超级终端来进行执行就可以了。(注意：执行后稍等30秒左右再进行其他操作)
-		return true;
+		for (int n = 0; n < SerialPortConstants.BAUD_RATE_ARRAY.length; n++) {
+			/**
+			 * Map里包含串口的基本信息
+			 * 串口名serialPortName、比特率baudRate、所有者curOwner,短信猫提供商manuFacturer，还需其他信息可调整程序获取信息
+			 */
+			Map<String,String> m = null;
+			SerialPort serialPort = null;
+			try {
+				serialPort = (SerialPort) temPort.open("P"+temPort.getName()+n, 30);
+			} catch (PortInUseException e) {
+				e.printStackTrace();
+				break;
+			}
+			try {
+				serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN);
+				serialPort.setSerialPortParams(SerialPortConstants.BAUD_RATE_ARRAY[n], // 波特率
+						SerialPort.DATABITS_8, // 数据位数
+						SerialPort.STOPBITS_1, // 停止位
+						SerialPort.PARITY_NONE);// 奇偶位
+				serialPort.enableReceiveTimeout(100);
+			} catch (UnsupportedCommOperationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			InputStream inputStream;
+			try {
+				inputStream = serialPort.getInputStream();
+				OutputStream outputStream = serialPort.getOutputStream();
+				outputStream.write('A');  
+				outputStream.write('T');  
+				outputStream.write('+');  
+				outputStream.write('C');  
+				outputStream.write('F');  
+				outputStream.write('U');  
+				outputStream.write('N');
+				outputStream.write('='); 
+				outputStream.write(chr); 
+				outputStream.write('\r');
+				
+				int i;
+				StringBuffer sb = new StringBuffer();
+				int c;
+				while ((c = inputStream.read()) != -1) {
+					sb.append((char) c);
+				}
+				System.out.println(sb.toString());
+				inputStream.close();  
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+           
+            serialPort.close();
+		}
+		System.out.println("重启短信猫了");
 	}
 }
