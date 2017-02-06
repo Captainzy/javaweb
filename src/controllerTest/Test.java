@@ -107,7 +107,7 @@ public class Test {
 	
 	@RequestMapping(value="/testDuanxin",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String testDuanxin(){
-		String[] numbers = {"13658014201","18113152327","15196374388","13678208046","18782960459","15182705446"};
+		String[] numbers = {"18113152327"};
 		String msg = "今晚上一起吃饭啊，老地方";
 		StringBuffer jsonStr = new StringBuffer("[");
 		for(int i = 0;i<numbers.length;i++){

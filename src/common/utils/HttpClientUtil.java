@@ -25,7 +25,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 public class HttpClientUtil {
-	// //post请求
+	/**
+	 * @author zouyang
+	 * @time 2017年2月6日 上午11:53:47
+	 * @description post提交，参数是String类型的键值对（map）
+	 * @param url
+	 * @param map
+	 * @return
+	 */
 	public static String httpPost(String url, Map<String, String> map) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
@@ -84,7 +91,16 @@ public class HttpClientUtil {
 		return result;
 	}
 
-	//  post提交，参数为不同类型
+	/**
+	 * @author zouyang
+	 * @time 2017年2月6日 上午11:52:15
+	 * @description post提交，包含不同类型的参数，参数是多个文件（listFile）和一些键值对(map)
+	 * @param url
+	 * @param listFile
+	 * @param map
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	public static String postObject(String url, List<File> listFile, Map<String, String> map) throws FileNotFoundException {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
