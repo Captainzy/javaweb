@@ -74,7 +74,7 @@ public class EmailSendUtil {
 				mm.setRecipients(RecipientType.CC, copyToAddresses);
 			}
 
-			if (essi.getEmailTheme() != null && !"".equals(essi.getEmailContent())) {
+			if (essi.getEmailTheme() != null && !"".equals(essi.getEmailTheme())) {
 				// 设置邮件主题
 				mm.setSubject(essi.getEmailTheme(), "UTF-8");
 			}
@@ -85,21 +85,22 @@ public class EmailSendUtil {
 			if ("HTML".equals(messageType.toUpperCase())) {
 				// 以html的形式发送邮件
 				BodyPart bpContent = new MimeBodyPart();
-				bpContent.setContent(essi.getEmailContent(), "text/html;charset=UTF-8");
+				bpContent.setContent(essi.getEmailContent() == null ? "" : essi.getEmailContent(),
+						"text/html;charset=UTF-8");
 				mp.addBodyPart(bpContent);
 			} else if ("TEXT".equals(messageType.toUpperCase())) {
 				// 以文本形式发送邮件
 				BodyPart bpContent = new MimeBodyPart();
-				bpContent.setText(essi.getEmailContent());
+				bpContent.setText(essi.getEmailContent() == null ? "" : essi.getEmailContent());
 				mp.addBodyPart(bpContent);
-			}else{
+			} else {
 				// 默认以文本形式发送邮件
 				BodyPart bpContent = new MimeBodyPart();
-				bpContent.setText(essi.getEmailContent());
+				bpContent.setText(essi.getEmailContent() == null ? "" : essi.getEmailContent());
 				mp.addBodyPart(bpContent);
 			}
 
-			if (essi.getEmailAttachment().length > 0) {
+			if (essi.getEmailAttachment() != null && essi.getEmailAttachment().length > 0) {
 				// 存在附件，发送带附件的邮件
 				for (File f : essi.getEmailAttachment()) {
 					BodyPart bpFile = new MimeBodyPart();

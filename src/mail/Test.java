@@ -20,9 +20,9 @@ public class Test {
 		essi.setEmailTheme("问候邮件");
 		String[] recipentAddresses = new String[]{"490353104@qq.com"};
 		essi.setRecipientAddress(recipentAddresses);
-		essi.setEmailContent("这段时间你好吗？");
-		File f = new File("C:\\Users\\TZ\\Desktop\\test.java");
-		essi.setEmailAttachment(new File[]{f});
+		essi.setEmailContent("测试邮件，这段时间你好吗？");
+//		File f = new File("C:\\Users\\TZ\\Desktop\\test.java");
+//		essi.setEmailAttachment(new File[]{f});
 		
 		EmailSendUtil.sendEmail(essi, "text");
 
