@@ -1,10 +1,5 @@
 package threadPractice.customerAndProducter;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 public class TestMain {
 	public static void main(String[] args) {
 		ProductWarehouse pwh = new ProductWarehouse();
