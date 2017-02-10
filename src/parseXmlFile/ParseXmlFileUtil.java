@@ -94,31 +94,32 @@ public class ParseXmlFileUtil {
 		return list;
 	}
 	
-	public static List<?> parseXmlToListByDom4j(File file,String nodeName) throws DocumentException{
+	public static Map<String,Object> parseXmlToMapByDom4j(File file) throws DocumentException{
 		SAXReader sr = new SAXReader();
 		org.dom4j.Document dc = sr.read(file);
-		List<Element> list = dc.getRootElement().elements();
-		for(Element element : list){
-			if(element.elements().size()>0){
-				
-			}
-		}
-		return null;
+		Map<String,Object> map = getElementValue(dc.getRootElement());
+		return map;
 	}
-	private static Map<String,String>  getElementValue(Element e){
+	private static Map<String,Object>  getElementValue(Element e){
 		List<Element> list = e.elements();
-		if(list.size()>0&&list.get(0).elements().size()==0){
-			Map<String,String> m = new HashMap<String,String>();
-			for(Element element : list){
-				m.put(element.getName(), element.getStringValue());
-			}
-			return m;
-		}else{
-			
+		if(list.size()==0){
+			Map<String,Object> map= new HashMap<String,Object>();
+			map.put(e.getName(), e.getStringValue());
+			return map;
 		}
+		List<Map<String,Object>> aList = new ArrayList<Map<String,Object>>();
+		for(Element element : list){
+			aList.add(getElementValue(element));
+		}
+		Map<String,Object> reMap = new HashMap<String,Object>();
+		reMap.put(e.getName()+"_listChildren", aList);
+		return reMap;
+		
 	}
-	public static List<?> parseXmlToListByDom4j(String text,String nodeName) throws DocumentException{
+	
+	public static Map<String,Object> parseXmlToMapByDom4j(String text) throws DocumentException{
 		org.dom4j.Document dc = DocumentHelper.parseText(text);
-		return null;
+		Map<String,Object> map = getElementValue(dc.getRootElement());
+		return map;
 	}
 }
