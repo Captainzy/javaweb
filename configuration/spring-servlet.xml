@@ -19,10 +19,10 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	
 	<!-- 激活springmvc 注解 -->
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven validator="validator"/>
 	
 	<!-- 注解扫描 -->	
-	<context:component-scan base-package="aop,applicationListener,controllerTest,springFramework,upload,websocket" />
+	<context:component-scan base-package="aop,applicationListener,controllerTest,springFramework,upload,websocket,validator" />
 	
 	<!-- 视图解析器 -->
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -59,4 +59,8 @@
 	</websocket:handlers>
 	
 	<bean id="myHandler" class="springFramework.websocket.MyHandler"></bean> -->
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+	</bean>
 </beans>
