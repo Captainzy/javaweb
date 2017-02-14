@@ -1,12 +1,13 @@
 package validator;
 
+import javax.validation.Valid;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -19,8 +20,8 @@ public class ValidatorController {
 		mv.addObject("testBean", new TestBean());
 		return mv;
 	}
-	@RequestMapping(value="/validTest",produces=MediaType.TEXT_HTML_VALUE)
-	public String validTest(@RequestParam(value="testBean",required=false) @Validated TestBean testBean,BindingResult br,Model m){
+	@RequestMapping(value="/validTest")
+	public String validTest(@ModelAttribute("testBean") @Valid TestBean testBean,BindingResult br){//BindingResult必须紧随@valid之后,每一个@valid对应一个BindingResult
 		if(br.hasErrors()){
 			return "/validTest/testPage";
 		}

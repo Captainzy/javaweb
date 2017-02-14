@@ -15,7 +15,7 @@
 			<form:input path="name" />
 			<form:errors path="name" />
 			<form:input path="telPhone" />
-			<form:input path="telPhone" />
+			<form:errors path="telPhone" />
 			<button type="submit">提交</button>
 		</form:form>
 	</div>

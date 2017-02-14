@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebRoot/WEB-INF/view/upload.jsp=UTF-8
 encoding//configuration/redis.properties=UTF-8
+encoding//configuration/validatorMessages.properties=UTF-8
 encoding/<project>=UTF-8
