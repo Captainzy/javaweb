@@ -1,8 +1,5 @@
 package duanxin.common;
 
-import java.util.List;
-import java.util.Map;
-
 import duanxin.modem.service.ModemService;
 import duanxin.modem.util.SerialPortsUtil;
 
