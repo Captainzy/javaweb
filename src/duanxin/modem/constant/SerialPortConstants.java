@@ -7,5 +7,4 @@ public abstract class SerialPortConstants {
 	public static final boolean DEBUG = false;//是否调试模式
 	public static final boolean INBOUNDMESSAGE = false;//是否可以接收短信
 	public static final boolean OUTBOUNDMESSAGE = true;//是否可以发送短信
-	public static final String SERVICE_CENTER_NUMBER = "";//短信中心号码
 }
