@@ -36,7 +36,6 @@ public class HttpClientUtil {
 	public static String httpPost(String url, Map<String, String> map) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
-		CloseableHttpResponse response = null;
 
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		for (Map.Entry<String, String> m : map.entrySet()) {
@@ -45,6 +44,7 @@ public class HttpClientUtil {
 		}
 
 		HttpEntity postEntity = null;
+		CloseableHttpResponse response = null;
 		String result = null;
 		try {
 			postEntity = new UrlEncodedFormEntity(list,"UTF-8");
@@ -118,6 +118,7 @@ public class HttpClientUtil {
 		}
 		HttpEntity postEntity = entityBuilder.build();
 		httpPost.setEntity(postEntity);
+		
 		CloseableHttpResponse response = null;
 		HttpEntity responseEntity = null;
 		String result = null;
