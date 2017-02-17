@@ -125,7 +125,7 @@ public class HttpClientUtil {
 		try {
 			response = httpClient.execute(httpPost);
 			responseEntity = response.getEntity();
-			result = EntityUtils.toString(responseEntity);
+			result = EntityUtils.toString(responseEntity,"UTF-8");
 		} catch (ClientProtocolException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
