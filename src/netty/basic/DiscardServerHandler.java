@@ -1,8 +1,6 @@
-package netty;
+package netty.basic;
 
-import netty.Auth.AuthRequest;
-import netty.Proto.Pc.Endpoint;
-import netty.Proto.Pc.Endpoint.Builder;
+import static netty.basic.AttributeKeyConstant.KEY_USERNAME;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -11,7 +9,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
-import static netty.AttributeKeyConstant.KEY_USERNAME;
+import netty.basic.Auth.AuthRequest;
+import netty.basic.Proto.Pc.Endpoint;
+import netty.basic.Proto.Pc.Endpoint.Builder;
 public class DiscardServerHandler extends ChannelInboundHandlerAdapter{
 
 	@Override

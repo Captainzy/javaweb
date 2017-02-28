@@ -1,4 +1,4 @@
-package netty;
+package netty.basic;
 
 import java.util.concurrent.TimeUnit;
 

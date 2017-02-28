@@ -1,4 +1,4 @@
-package netty;
+package netty.basic;
 
 import io.netty.util.AttributeKey;
 

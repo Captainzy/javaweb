@@ -1,8 +1,6 @@
-package netty;
+package netty.basic;
 
 import java.util.concurrent.TimeUnit;
-
-import netty.Auth.AuthResponse;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -12,6 +10,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
+import netty.basic.Auth.AuthResponse;
 
 public class DiscardClientHandler extends ChannelInboundHandlerAdapter {
 	private  Bootstrap bs;
