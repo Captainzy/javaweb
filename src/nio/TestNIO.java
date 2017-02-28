@@ -20,7 +20,8 @@ public class TestNIO {
 		selectorTest();
 		
 	}
-	
+	//FileChannel是一个连接到文件的通道。可以通过文件通道读写文件。
+	//FileChannel无法设置为非阻塞模式，它总是运行在阻塞模式下
 	public static void baseTest() throws Exception{
 		String path = TestNIO.class.getClassLoader().getResource("").getPath()+"/nio/nio-data.txt";
 		RandomAccessFile file = new RandomAccessFile(new File(path), "rw");
@@ -48,6 +49,8 @@ public class TestNIO {
 		file.close();
 	}
 	
+	//1.Scatter  从一个Channel读取的信息分散到N个缓冲区中(Buufer).
+	//2.Gather  将N个Buffer里面内容按照顺序发送到一个Channel.  
 	public static void scannerAndGatherTest() throws Exception{
 		String path = TestNIO.class.getClassLoader().getResource("").getPath() + "nio/nio-data.txt";
 		RandomAccessFile file = new RandomAccessFile(new File(path), "rw");
@@ -71,7 +74,7 @@ public class TestNIO {
 		channel.close();
 		file.close();
 	}
-	
+	//通过FileChannel传输文件
 	public static void transferTest() throws Exception{
 		String path = TestNIO.class.getClassLoader().getResource("").getPath()+"nio/from-nio-data.txt";
 		String path2 = TestNIO.class.getClassLoader().getResource("").getPath()+"nio/to-nio-data.txt";
@@ -95,7 +98,7 @@ public class TestNIO {
 		}
 		System.out.println(sb);
 	}
-	
+	//NIo客户端
 	public static void selectorTest() throws Exception{
 
 		Selector selector = Selector.open();

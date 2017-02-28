@@ -61,8 +61,19 @@ public class DiscardClient {
 		});
 		bs.option(ChannelOption.SO_KEEPALIVE, true);
 		
-		ChannelFuture cf = bs.connect(host, port);
-		cf.addListener(new ClientChannelFutureListener(bs, host, port));
+		
+		try {
+			ChannelFuture cf = bs.connect(host, port).sync();
+			cf.addListener(new ClientChannelFutureListener(bs, host, port));
+		} catch (InterruptedException e) {
+			//释放Nio线程组
+			workerGroup.shutdownGracefully();
+		}finally{
+			if(!workerGroup.isShutdown()){
+				workerGroup.shutdownGracefully();
+			}
+		}
+		
 		
 	}
 }
