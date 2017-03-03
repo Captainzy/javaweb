@@ -122,7 +122,7 @@ public class Test {
 		Map<String,String> m = new HashMap<String,String>();
 		m.put("userMsgList", jsonStr.toString());
 //		m.put("inforList", "123456");
-		String result = HttpClientUtil.httpPost("http://192.168.6.181:8080/duanxin/sendMsg/sendMsgToGroup", m);
+		String result = HttpClientUtil.httpPost("http://192.168.6.181:8080/DuanXinService/sendMsg/sendMsgToGroup", m);
 		System.out.println(jsonStr.toString());
 		return result;
 	}

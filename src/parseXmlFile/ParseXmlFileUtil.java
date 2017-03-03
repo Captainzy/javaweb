@@ -80,14 +80,14 @@ public class ParseXmlFileUtil {
 			for(int i = 0;i<nodelist.getLength();i++){
 				Map<String,String> m = new HashMap<String,String>();
 				Node node = nodelist.item(i);
-				m.put(node.getNodeName(),node.getNodeValue());
+				m.put(node.getNodeName(),node.getTextContent());
 				list.add(m);
 			}
 		}else if(nodelist.item(0).getChildNodes().getLength()<=0){
 			for(int i = 0;i<nodelist.getLength();i++){
 				Map<String,String> m = new HashMap<String,String>();
 				Node node = nodelist.item(i);
-				list.add(node.getNodeValue());
+				list.add(node.getTextContent());
 			}
 		}
 		
