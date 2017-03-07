@@ -11,15 +11,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 public class DiscardServer {
@@ -41,7 +36,6 @@ public class DiscardServer {
 		 */
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
-		
 		/**ServerBootstrap is a helper class that sets up a server.*/
 		ServerBootstrap bs = new ServerBootstrap();
 		bs.group(bossGroup, workerGroup);
@@ -59,11 +53,14 @@ public class DiscardServer {
 				
 				//使用protobuf传送数据
 				ChannelPipeline pipeline = sc.pipeline();
+				//ProtobufEncoder仅仅负责解码，不支持读半包，因此在ProtobufDecoder之前还需要添加处理读半包的解码器，有三种方式可选：
+				//1.使用netty提供的ProtobufVarint32FrameDecoder，2.使用netty提供的LengthFieldBasedFrameDecoder，3.继承ByteToMessageDecoder,自己处理半包问题
+				//pipeline.addLast(new LengthFieldBasedFrameDecoder(1024*1024,0,3,0,3));
+				pipeline.addLast(new ProtobufVarint32FrameDecoder());
 				//添加解码器
-				pipeline.addLast(new LengthFieldBasedFrameDecoder(1024*1024,0,3,0,3));
 				pipeline.addLast(new ProtobufDecoder(Proto.Pc.Endpoint.getDefaultInstance()));
 				//添加编码器
-				pipeline.addLast(new LengthFieldPrepender(3));
+				pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
 				pipeline.addLast(new ProtobufEncoder());
 				//心跳控制，心跳控制必须放在定义的处理handler之前
 				pipeline.addLast(new IdleStateHandler(120,120,360,TimeUnit.SECONDS));
