@@ -65,7 +65,7 @@ public class DiscardServer {
 				//心跳控制，心跳控制必须放在定义的处理handler之前
 				pipeline.addLast(new IdleStateHandler(120,120,360,TimeUnit.SECONDS));
 				//处理类
-				pipeline.addLast(new DiscardServerHandler());
+				pipeline.addLast(new MyDiscardServerHandler());
 				
 			}
 		});
