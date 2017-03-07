@@ -18,6 +18,7 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
+import netty.appFramework.netty.proto.ProtoRequest;
 
 public class DiscardClient {
 
@@ -51,7 +52,7 @@ public class DiscardClient {
 				ChannelPipeline pipeline = sc.pipeline();
 				//添加解码器
 				pipeline.addLast(new ProtobufVarint32FrameDecoder());
-				pipeline.addLast(new ProtobufDecoder(Proto.Pc.Endpoint.getDefaultInstance()));
+				pipeline.addLast(new ProtobufDecoder(ProtoRequest.Request.getDefaultInstance()));
 				//添加编码器
 				pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
 				pipeline.addLast(new ProtobufEncoder());
@@ -62,20 +63,8 @@ public class DiscardClient {
 			}
 		});
 		bs.option(ChannelOption.SO_KEEPALIVE, true);
-		
-		
-		try {
-			ChannelFuture cf = bs.connect(host, port).sync();
-			cf.addListener(new ClientChannelFutureListener(bs, host, port));
-		} catch (InterruptedException e) {
-			//释放Nio线程组
-			workerGroup.shutdownGracefully();
-		}finally{
-			if(!workerGroup.isShutdown()){
-				workerGroup.shutdownGracefully();
-			}
-		}
-		
-		
+		//下面这种连接服务端的方式，就算连接失败也会继续添加监听器，这样就实现了，连接失败重连的效果，
+		ChannelFuture cf = cf = bs.connect(host, port);
+		cf.addListener(new ClientChannelFutureListener(bs, host, port));
 	}
 }

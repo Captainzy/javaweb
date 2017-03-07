@@ -16,6 +16,7 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
+import netty.appFramework.netty.proto.ProtoRequest;
 
 public class DiscardServer {
 	private static int port;
@@ -58,14 +59,14 @@ public class DiscardServer {
 				//pipeline.addLast(new LengthFieldBasedFrameDecoder(1024*1024,0,3,0,3));
 				pipeline.addLast(new ProtobufVarint32FrameDecoder());
 				//添加解码器
-				pipeline.addLast(new ProtobufDecoder(Proto.Pc.Endpoint.getDefaultInstance()));
+				pipeline.addLast(new ProtobufDecoder(ProtoRequest.Request.getDefaultInstance()));
 				//添加编码器
 				pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
 				pipeline.addLast(new ProtobufEncoder());
 				//心跳控制，心跳控制必须放在定义的处理handler之前
 				pipeline.addLast(new IdleStateHandler(120,120,360,TimeUnit.SECONDS));
 				//处理类
-				pipeline.addLast(new MyDiscardServerHandler());
+				pipeline.addLast(new DiscardServerHandler());
 				
 			}
 		});
@@ -73,10 +74,12 @@ public class DiscardServer {
 		bs.option(ChannelOption.SO_BACKLOG,128);
 		bs.childOption(ChannelOption.SO_KEEPALIVE, true);
 		
-		/** Bind and start to accept incoming connections.*/
+		//绑定端口
 		ChannelFuture cf = bs.bind(port);
 		try {
+			//同步等待成功
 			cf.sync();
+			//等待服务端监听端口关闭
 			cf.channel().closeFuture().sync();
 		} catch (InterruptedException e) {
 			e.printStackTrace();

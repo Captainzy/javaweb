@@ -1,13 +1,14 @@
 package netty.appFramework.netty.core;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -21,6 +22,7 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
+import netty.appFramework.common.AppContextFactorySingle;
 import netty.appFramework.netty.handler.NettyServerHandler;
 import netty.appFramework.netty.proto.ProtoRequest;
 
@@ -31,13 +33,18 @@ public abstract class NettyServer {
 	private static EventLoopGroup bossGroup;
 	private static EventLoopGroup workerGroup;
 	private static ServerBootstrap bs;
+	private static Map<String,Channel> sessionMap;
 	static{
 		port = 8899;
 		bossGroup = new NioEventLoopGroup();
 		workerGroup = new NioEventLoopGroup();
 		bs = new ServerBootstrap();
+		sessionMap = new HashMap<String,Channel>();
 	}
 	public static void start(){
+		//初始化spring容器和相关配置
+		AppContextFactorySingle.APPCONTEXTFACTORY.getInstantce();
+		//开始开启服务端
 		bs.group(bossGroup,workerGroup);
 		bs.channel(NioServerSocketChannel.class);
 		bs.childHandler(new ChannelInitializer<SocketChannel>() {

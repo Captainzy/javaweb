@@ -10,6 +10,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
+import netty.appFramework.netty.proto.ProtoRequest;
 import netty.basic.Auth.AuthResponse;
 
 public class DiscardClientHandler extends ChannelInboundHandlerAdapter {
@@ -46,8 +47,8 @@ public class DiscardClientHandler extends ChannelInboundHandlerAdapter {
 				break;
 			case WRITER_IDLE:
 				System.out.println("客户端写超时，发送心跳消息");
-				Proto.Pc.Endpoint.Builder ep = Proto.Pc.Endpoint.newBuilder();
-				ctx.writeAndFlush(ep);
+				ProtoRequest.Request request = ProtoRequest.Request.newBuilder().build();
+				ctx.writeAndFlush(request);
 				break;
 			case ALL_IDLE:
 				break;

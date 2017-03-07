@@ -2,45 +2,40 @@ package netty.appFramework.netty.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
-import netty.appFramework.common.AppContext;
+import netty.appFramework.netty.proto.ProtoRequest;
+import netty.appFramework.netty.proto.ProtoRequest.Request;
 
 public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	private Logger log = LoggerFactory.getLogger(getClass());
-	private ApplicationContext appContext = AppContext.APPLICATIONCONTEXT.getInstantce();
-
-	@Override
-	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		log.info("-----------channelActive----------------");
-	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		log.info("-----------channelInactive----------------");
+		//断开连接时要将客户端的登录信息清除
+		log.info("channelInactive");
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		log.info("-----------channelRead----------------");
-	}
-
-	@Override
-	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-		log.info("-----------channelRegistered----------------");
-	}
-
-	@Override
-	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-		log.info("-----------channelUnregistered----------------");
+		if(msg instanceof ProtoRequest.Request){
+			ProtoRequest.Request request = (Request) msg;
+			switch(request.getCommandCase()){
+			case TEST:
+				break;
+			}
+		}else{
+			ctx.writeAndFlush(new String("参数不符合要求!!!"));
+		}
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		log.info("-----------exceptionCaught----------------");
+		log.info("exceptionCaught");
+		//发生异常时，要将客户端的登录信息清除
+		cause.printStackTrace();
+		
 	}
 
 	@Override
@@ -59,16 +54,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 				break;
 			}
 		}
-	}
-
-	@Override
-	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-		log.info("----------------handlerAdded-------------");
-	}
-
-	@Override
-	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-		log.info("------------------handlerRemoved------------------");
 	}
 	
 	
