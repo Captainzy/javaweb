@@ -1,12 +1,22 @@
 package netty.appFramework.netty.handler;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+
+import com.alibaba.fastjson.JSON;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
+import netty.appFramework.action.Test;
+import netty.appFramework.common.AppContextFactorySingle;
+import netty.appFramework.model.APIResult;
 import netty.appFramework.netty.proto.ProtoRequest;
 import netty.appFramework.netty.proto.ProtoRequest.Request;
+import netty.appFramework.netty.proto.ProtoResponse;
 
 public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	private Logger log = LoggerFactory.getLogger(getClass());
@@ -19,10 +29,19 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		ApplicationContext appContext = AppContextFactorySingle.APPCONTEXTFACTORY.getInstantce().getAppContext();
 		if(msg instanceof ProtoRequest.Request){
 			ProtoRequest.Request request = (Request) msg;
 			switch(request.getCommandCase()){
 			case TEST:
+				APIResult<Map<String,Object>> result = new APIResult<Map<String,Object>>();
+				Test testAction = appContext.getBean(Test.class);
+				result = testAction.testAction();
+				ProtoResponse.Response.Builder responseBuilder = ProtoResponse.Response.newBuilder();
+				ProtoResponse.TestBuf.Builder testBuilder = ProtoResponse.TestBuf.newBuilder();
+				testBuilder.setData(JSON.toJSONString(result));
+				responseBuilder.setTest(testBuilder);
+				ctx.writeAndFlush(responseBuilder);
 				break;
 			}
 		}else{

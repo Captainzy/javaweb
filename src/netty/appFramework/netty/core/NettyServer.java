@@ -29,19 +29,17 @@ import netty.appFramework.netty.proto.ProtoRequest;
 public abstract class NettyServer {
 	private static Logger logger = LoggerFactory.getLogger(NettyServer.class);
 	
-	private static int port;
 	private static EventLoopGroup bossGroup;
 	private static EventLoopGroup workerGroup;
 	private static ServerBootstrap bs;
 	private static Map<String,Channel> sessionMap;
 	static{
-		port = 8899;
 		bossGroup = new NioEventLoopGroup();
 		workerGroup = new NioEventLoopGroup();
 		bs = new ServerBootstrap();
 		sessionMap = new HashMap<String,Channel>();
 	}
-	public static void start(){
+	public static void start(int port){
 		//初始化spring容器和相关配置
 		AppContextFactorySingle.APPCONTEXTFACTORY.getInstantce();
 		//开始开启服务端
