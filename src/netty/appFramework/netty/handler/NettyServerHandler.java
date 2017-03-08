@@ -63,11 +63,11 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 			switch(((IdleStateEvent)e).state()){
 			case READER_IDLE:
 				System.out.println("----------------很久没有收到客户端消息了，断开连接------------------");
-				ctx.close();
 				break;
 			case WRITER_IDLE:
-				System.out.println("-----------------写超时，断开连接----------------------");
-				ctx.close();
+				System.out.println("-----------------呼叫客户端保持连接状态----------------------");
+				ProtoResponse.Response Response = ProtoResponse.Response.newBuilder().build();
+				ctx.writeAndFlush(Response);
 				break;
 			case ALL_IDLE:
 				break;

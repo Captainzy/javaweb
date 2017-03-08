@@ -53,7 +53,7 @@ public abstract class NettyServer {
 				pipeline.addLast(new ProtobufDecoder(ProtoRequest.Request.getDefaultInstance()));
 				pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
 				pipeline.addLast(new ProtobufEncoder());
-				pipeline.addLast(new IdleStateHandler(120, 120, 360, TimeUnit.SECONDS));
+				pipeline.addLast(new IdleStateHandler(120, 5, 360, TimeUnit.SECONDS));
 				pipeline.addLast(new NettyServerHandler());
 			}
 		});
