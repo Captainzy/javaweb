@@ -12,7 +12,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 import netty.appFramework.action.Test;
-import netty.appFramework.common.AppContextFactorySingle;
+import netty.appFramework.common.AppContextSingle;
 import netty.appFramework.model.APIResult;
 import netty.appFramework.netty.proto.ProtoRequest;
 import netty.appFramework.netty.proto.ProtoRequest.Request;
@@ -29,7 +29,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		ApplicationContext appContext = AppContextFactorySingle.APPCONTEXTFACTORY.getInstantce().getAppContext();
+		ApplicationContext appContext = AppContextSingle.APPCONTEXT.getInstantce().getAppContext();
 		if(msg instanceof ProtoRequest.Request){
 			ProtoRequest.Request request = (Request) msg;
 			switch(request.getCommandCase()){

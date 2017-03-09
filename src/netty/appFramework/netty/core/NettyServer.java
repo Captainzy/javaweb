@@ -22,7 +22,7 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
-import netty.appFramework.common.AppContextFactorySingle;
+import netty.appFramework.common.AppContextSingle;
 import netty.appFramework.netty.handler.NettyServerHandler;
 import netty.appFramework.netty.proto.ProtoRequest;
 
@@ -41,7 +41,7 @@ public abstract class NettyServer {
 	}
 	public static void start(int port){
 		//初始化spring容器和相关配置
-		AppContextFactorySingle.APPCONTEXTFACTORY.getInstantce();
+		AppContextSingle.APPCONTEXT.getInstantce();
 		//开始开启服务端
 		bs.group(bossGroup,workerGroup);
 		bs.channel(NioServerSocketChannel.class);
