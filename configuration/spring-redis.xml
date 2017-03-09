@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
-	<!-- spring-session.jar   spring-data-redis.jar   jedis.jar   
+	<!-- 通过spring实现与redis共享session    spring-session.jar   spring-data-redis.jar   jedis.jar   
 		必须在web.xml中配置拦截器
 		在web.xml中加入以下过滤器，注意如果web.xml中有其他过滤器，一般情况下Spring Session的过滤器要放在第一位。否则可能出现No bean named 'springSessionRepositoryFilter' is defined
 			<filter>
