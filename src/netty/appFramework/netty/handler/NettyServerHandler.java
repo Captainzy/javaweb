@@ -33,8 +33,11 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 
 		if (msg instanceof ProtoRequest.Request) {
 			ProtoRequest.Request request = (Request) msg;
+			//除登录请求外，都要进行登录校验
 			if(!request.getCommandCase().equals(request.getCommandCase().USERLOGIN)){
-				checkUserLogin(ctx);
+				if(checkUserLogin(ctx)){
+					return;
+				}
 			}
 			switch (request.getCommandCase()) {
 			case USERLOGIN:
@@ -77,7 +80,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 		}
 	}
 	
-	public static void checkUserLogin(ChannelHandlerContext ctx){
+	public static boolean checkUserLogin(ChannelHandlerContext ctx){
 		if(appContext.getSessionMap().get(ctx)==null){
 			APIResult<?> result = new APIResult<>();
 			result.setCode(-1);
@@ -87,7 +90,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 			userLoginResult.setResult(JSON.toJSONString(result));
 			response.setResult(userLoginResult);
 			ctx.writeAndFlush(result);
+			return true;
 		}
+		return false;
 	}
 	
 	public static void userLogin(ChannelHandlerContext ctx, Request request) {
