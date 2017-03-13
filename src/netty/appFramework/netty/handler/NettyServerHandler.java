@@ -33,6 +33,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 
 		if (msg instanceof ProtoRequest.Request) {
 			ProtoRequest.Request request = (Request) msg;
+			if(!request.getCommandCase().equals(request.getCommandCase().USERLOGIN)){
+				checkUserLogin(ctx);
+			}
 			switch (request.getCommandCase()) {
 			case USERLOGIN:
 				userLogin(ctx, request);
@@ -47,7 +50,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 			ctx.writeAndFlush(new String("参数不符合要求!!!"));
 		}
 	}
-
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		log.info("exceptionCaught");
@@ -61,7 +63,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 		if(e instanceof IdleStateEvent) {
 			switch(((IdleStateEvent)e).state()){
 			case READER_IDLE:
-				System.out.println("----------------很久没有收到客户端消息了，断开连接------------------");
+				System.out.println("----------------很久没有收到客户端消息了,断开连接------------------");
+				ctx.close();
 				break;
 			case WRITER_IDLE:
 				System.out.println("-----------------呼叫客户端保持连接状态----------------------");
@@ -71,6 +74,19 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 			case ALL_IDLE:
 				break;
 			}
+		}
+	}
+	
+	public static void checkUserLogin(ChannelHandlerContext ctx){
+		if(appContext.getSessionMap().get(ctx)==null){
+			APIResult<?> result = new APIResult<>();
+			result.setCode(-1);
+			result.setMsg("用户未登录，请登录后进行操作！！！");
+			ProtoResponse.Response.Builder response = ProtoResponse.Response.newBuilder();
+			ProtoResponse.Result.Builder userLoginResult = ProtoResponse.Result.newBuilder();
+			userLoginResult.setResult(JSON.toJSONString(result));
+			response.setResult(userLoginResult);
+			ctx.writeAndFlush(result);
 		}
 	}
 	
