@@ -10,8 +10,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import io.netty.channel.Channel;
 
 public class AppContext {
-	private Map<String, Channel> sessionMap;
-	private ApplicationContext appContext;
+	private Map<Object, Object> sessionMap;
+	private ApplicationContext applicationContext;
 
 	protected AppContext() {
 
@@ -22,14 +22,14 @@ public class AppContext {
 		// 配置文件在类路径下
 		// context = new ClassPathXmlApplicationContext(configLocations);
 		// 配置文件在系统目录里
-		appContext = new FileSystemXmlApplicationContext(configLocations);
+		applicationContext = new FileSystemXmlApplicationContext(configLocations);
 	}
 
-	public Map<String, Channel> getSessionMap() {
+	public Map<Object, Object> getSessionMap() {
 		return sessionMap;
 	}
 
-	public ApplicationContext getAppContext() {
-		return appContext;
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
 	}
 }

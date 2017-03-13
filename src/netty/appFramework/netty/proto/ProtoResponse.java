@@ -12,13 +12,22 @@ public final class ProtoResponse {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional .TestBuf test = 1;</code>
+     * <code>optional .UserLogin userLogin = 1;</code>
      */
-    ProtoResponse.TestBuf getTest();
+    ProtoResponse.UserLogin getUserLogin();
     /**
-     * <code>optional .TestBuf test = 1;</code>
+     * <code>optional .UserLogin userLogin = 1;</code>
      */
-    ProtoResponse.TestBufOrBuilder getTestOrBuilder();
+    ProtoResponse.UserLoginOrBuilder getUserLoginOrBuilder();
+
+    /**
+     * <code>optional .UserLogOut userLogOut = 2;</code>
+     */
+    ProtoResponse.UserLogOut getUserLogOut();
+    /**
+     * <code>optional .UserLogOut userLogOut = 2;</code>
+     */
+    ProtoResponse.UserLogOutOrBuilder getUserLogOutOrBuilder();
 
     public ProtoResponse.Response.CommandCase getCommandCase();
   }
@@ -61,17 +70,31 @@ public final class ProtoResponse {
               break;
             }
             case 10: {
-              ProtoResponse.TestBuf.Builder subBuilder = null;
+              ProtoResponse.UserLogin.Builder subBuilder = null;
               if (commandCase_ == 1) {
-                subBuilder = ((ProtoResponse.TestBuf) command_).toBuilder();
+                subBuilder = ((ProtoResponse.UserLogin) command_).toBuilder();
               }
               command_ =
-                  input.readMessage(ProtoResponse.TestBuf.parser(), extensionRegistry);
+                  input.readMessage(ProtoResponse.UserLogin.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((ProtoResponse.TestBuf) command_);
+                subBuilder.mergeFrom((ProtoResponse.UserLogin) command_);
                 command_ = subBuilder.buildPartial();
               }
               commandCase_ = 1;
+              break;
+            }
+            case 18: {
+              ProtoResponse.UserLogOut.Builder subBuilder = null;
+              if (commandCase_ == 2) {
+                subBuilder = ((ProtoResponse.UserLogOut) command_).toBuilder();
+              }
+              command_ =
+                  input.readMessage(ProtoResponse.UserLogOut.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((ProtoResponse.UserLogOut) command_);
+                command_ = subBuilder.buildPartial();
+              }
+              commandCase_ = 2;
               break;
             }
           }
@@ -102,7 +125,8 @@ public final class ProtoResponse {
     private java.lang.Object command_;
     public enum CommandCase
         implements com.google.protobuf.Internal.EnumLite {
-      TEST(1),
+      USERLOGIN(1),
+      USERLOGOUT(2),
       COMMAND_NOT_SET(0);
       private int value = 0;
       private CommandCase(int value) {
@@ -110,7 +134,8 @@ public final class ProtoResponse {
       }
       public static CommandCase valueOf(int value) {
         switch (value) {
-          case 1: return TEST;
+          case 1: return USERLOGIN;
+          case 2: return USERLOGOUT;
           case 0: return COMMAND_NOT_SET;
           default: throw new java.lang.IllegalArgumentException(
             "Value is undefined for this oneof enum.");
@@ -127,24 +152,44 @@ public final class ProtoResponse {
           commandCase_);
     }
 
-    public static final int TEST_FIELD_NUMBER = 1;
+    public static final int USERLOGIN_FIELD_NUMBER = 1;
     /**
-     * <code>optional .TestBuf test = 1;</code>
+     * <code>optional .UserLogin userLogin = 1;</code>
      */
-    public ProtoResponse.TestBuf getTest() {
+    public ProtoResponse.UserLogin getUserLogin() {
       if (commandCase_ == 1) {
-         return (ProtoResponse.TestBuf) command_;
+         return (ProtoResponse.UserLogin) command_;
       }
-      return ProtoResponse.TestBuf.getDefaultInstance();
+      return ProtoResponse.UserLogin.getDefaultInstance();
     }
     /**
-     * <code>optional .TestBuf test = 1;</code>
+     * <code>optional .UserLogin userLogin = 1;</code>
      */
-    public ProtoResponse.TestBufOrBuilder getTestOrBuilder() {
+    public ProtoResponse.UserLoginOrBuilder getUserLoginOrBuilder() {
       if (commandCase_ == 1) {
-         return (ProtoResponse.TestBuf) command_;
+         return (ProtoResponse.UserLogin) command_;
       }
-      return ProtoResponse.TestBuf.getDefaultInstance();
+      return ProtoResponse.UserLogin.getDefaultInstance();
+    }
+
+    public static final int USERLOGOUT_FIELD_NUMBER = 2;
+    /**
+     * <code>optional .UserLogOut userLogOut = 2;</code>
+     */
+    public ProtoResponse.UserLogOut getUserLogOut() {
+      if (commandCase_ == 2) {
+         return (ProtoResponse.UserLogOut) command_;
+      }
+      return ProtoResponse.UserLogOut.getDefaultInstance();
+    }
+    /**
+     * <code>optional .UserLogOut userLogOut = 2;</code>
+     */
+    public ProtoResponse.UserLogOutOrBuilder getUserLogOutOrBuilder() {
+      if (commandCase_ == 2) {
+         return (ProtoResponse.UserLogOut) command_;
+      }
+      return ProtoResponse.UserLogOut.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -160,7 +205,10 @@ public final class ProtoResponse {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (commandCase_ == 1) {
-        output.writeMessage(1, (ProtoResponse.TestBuf) command_);
+        output.writeMessage(1, (ProtoResponse.UserLogin) command_);
+      }
+      if (commandCase_ == 2) {
+        output.writeMessage(2, (ProtoResponse.UserLogOut) command_);
       }
     }
 
@@ -171,7 +219,11 @@ public final class ProtoResponse {
       size = 0;
       if (commandCase_ == 1) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, (ProtoResponse.TestBuf) command_);
+          .computeMessageSize(1, (ProtoResponse.UserLogin) command_);
+      }
+      if (commandCase_ == 2) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, (ProtoResponse.UserLogOut) command_);
       }
       memoizedSize = size;
       return size;
@@ -309,10 +361,17 @@ public final class ProtoResponse {
       public ProtoResponse.Response buildPartial() {
         ProtoResponse.Response result = new ProtoResponse.Response(this);
         if (commandCase_ == 1) {
-          if (testBuilder_ == null) {
+          if (userLoginBuilder_ == null) {
             result.command_ = command_;
           } else {
-            result.command_ = testBuilder_.build();
+            result.command_ = userLoginBuilder_.build();
+          }
+        }
+        if (commandCase_ == 2) {
+          if (userLogOutBuilder_ == null) {
+            result.command_ = command_;
+          } else {
+            result.command_ = userLogOutBuilder_.build();
           }
         }
         result.commandCase_ = commandCase_;
@@ -332,8 +391,12 @@ public final class ProtoResponse {
       public Builder mergeFrom(ProtoResponse.Response other) {
         if (other == ProtoResponse.Response.getDefaultInstance()) return this;
         switch (other.getCommandCase()) {
-          case TEST: {
-            mergeTest(other.getTest());
+          case USERLOGIN: {
+            mergeUserLogin(other.getUserLogin());
+            break;
+          }
+          case USERLOGOUT: {
+            mergeUserLogOut(other.getUserLogOut());
             break;
           }
           case COMMAND_NOT_SET: {
@@ -382,61 +445,61 @@ public final class ProtoResponse {
 
 
       private com.google.protobuf.SingleFieldBuilder<
-          ProtoResponse.TestBuf, ProtoResponse.TestBuf.Builder, ProtoResponse.TestBufOrBuilder> testBuilder_;
+          ProtoResponse.UserLogin, ProtoResponse.UserLogin.Builder, ProtoResponse.UserLoginOrBuilder> userLoginBuilder_;
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
-      public ProtoResponse.TestBuf getTest() {
-        if (testBuilder_ == null) {
+      public ProtoResponse.UserLogin getUserLogin() {
+        if (userLoginBuilder_ == null) {
           if (commandCase_ == 1) {
-            return (ProtoResponse.TestBuf) command_;
+            return (ProtoResponse.UserLogin) command_;
           }
-          return ProtoResponse.TestBuf.getDefaultInstance();
+          return ProtoResponse.UserLogin.getDefaultInstance();
         } else {
           if (commandCase_ == 1) {
-            return testBuilder_.getMessage();
+            return userLoginBuilder_.getMessage();
           }
-          return ProtoResponse.TestBuf.getDefaultInstance();
+          return ProtoResponse.UserLogin.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
-      public Builder setTest(ProtoResponse.TestBuf value) {
-        if (testBuilder_ == null) {
+      public Builder setUserLogin(ProtoResponse.UserLogin value) {
+        if (userLoginBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           command_ = value;
           onChanged();
         } else {
-          testBuilder_.setMessage(value);
+          userLoginBuilder_.setMessage(value);
         }
         commandCase_ = 1;
         return this;
       }
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
-      public Builder setTest(
-          ProtoResponse.TestBuf.Builder builderForValue) {
-        if (testBuilder_ == null) {
+      public Builder setUserLogin(
+          ProtoResponse.UserLogin.Builder builderForValue) {
+        if (userLoginBuilder_ == null) {
           command_ = builderForValue.build();
           onChanged();
         } else {
-          testBuilder_.setMessage(builderForValue.build());
+          userLoginBuilder_.setMessage(builderForValue.build());
         }
         commandCase_ = 1;
         return this;
       }
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
-      public Builder mergeTest(ProtoResponse.TestBuf value) {
-        if (testBuilder_ == null) {
+      public Builder mergeUserLogin(ProtoResponse.UserLogin value) {
+        if (userLoginBuilder_ == null) {
           if (commandCase_ == 1 &&
-              command_ != ProtoResponse.TestBuf.getDefaultInstance()) {
-            command_ = ProtoResponse.TestBuf.newBuilder((ProtoResponse.TestBuf) command_)
+              command_ != ProtoResponse.UserLogin.getDefaultInstance()) {
+            command_ = ProtoResponse.UserLogin.newBuilder((ProtoResponse.UserLogin) command_)
                 .mergeFrom(value).buildPartial();
           } else {
             command_ = value;
@@ -444,18 +507,18 @@ public final class ProtoResponse {
           onChanged();
         } else {
           if (commandCase_ == 1) {
-            testBuilder_.mergeFrom(value);
+            userLoginBuilder_.mergeFrom(value);
           }
-          testBuilder_.setMessage(value);
+          userLoginBuilder_.setMessage(value);
         }
         commandCase_ = 1;
         return this;
       }
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
-      public Builder clearTest() {
-        if (testBuilder_ == null) {
+      public Builder clearUserLogin() {
+        if (userLoginBuilder_ == null) {
           if (commandCase_ == 1) {
             commandCase_ = 0;
             command_ = null;
@@ -466,49 +529,179 @@ public final class ProtoResponse {
             commandCase_ = 0;
             command_ = null;
           }
-          testBuilder_.clear();
+          userLoginBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
-      public ProtoResponse.TestBuf.Builder getTestBuilder() {
-        return getTestFieldBuilder().getBuilder();
+      public ProtoResponse.UserLogin.Builder getUserLoginBuilder() {
+        return getUserLoginFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
-      public ProtoResponse.TestBufOrBuilder getTestOrBuilder() {
-        if ((commandCase_ == 1) && (testBuilder_ != null)) {
-          return testBuilder_.getMessageOrBuilder();
+      public ProtoResponse.UserLoginOrBuilder getUserLoginOrBuilder() {
+        if ((commandCase_ == 1) && (userLoginBuilder_ != null)) {
+          return userLoginBuilder_.getMessageOrBuilder();
         } else {
           if (commandCase_ == 1) {
-            return (ProtoResponse.TestBuf) command_;
+            return (ProtoResponse.UserLogin) command_;
           }
-          return ProtoResponse.TestBuf.getDefaultInstance();
+          return ProtoResponse.UserLogin.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .TestBuf test = 1;</code>
+       * <code>optional .UserLogin userLogin = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          ProtoResponse.TestBuf, ProtoResponse.TestBuf.Builder, ProtoResponse.TestBufOrBuilder> 
-          getTestFieldBuilder() {
-        if (testBuilder_ == null) {
+          ProtoResponse.UserLogin, ProtoResponse.UserLogin.Builder, ProtoResponse.UserLoginOrBuilder> 
+          getUserLoginFieldBuilder() {
+        if (userLoginBuilder_ == null) {
           if (!(commandCase_ == 1)) {
-            command_ = ProtoResponse.TestBuf.getDefaultInstance();
+            command_ = ProtoResponse.UserLogin.getDefaultInstance();
           }
-          testBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              ProtoResponse.TestBuf, ProtoResponse.TestBuf.Builder, ProtoResponse.TestBufOrBuilder>(
-                  (ProtoResponse.TestBuf) command_,
+          userLoginBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              ProtoResponse.UserLogin, ProtoResponse.UserLogin.Builder, ProtoResponse.UserLoginOrBuilder>(
+                  (ProtoResponse.UserLogin) command_,
                   getParentForChildren(),
                   isClean());
           command_ = null;
         }
         commandCase_ = 1;
         onChanged();;
-        return testBuilder_;
+        return userLoginBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilder<
+          ProtoResponse.UserLogOut, ProtoResponse.UserLogOut.Builder, ProtoResponse.UserLogOutOrBuilder> userLogOutBuilder_;
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      public ProtoResponse.UserLogOut getUserLogOut() {
+        if (userLogOutBuilder_ == null) {
+          if (commandCase_ == 2) {
+            return (ProtoResponse.UserLogOut) command_;
+          }
+          return ProtoResponse.UserLogOut.getDefaultInstance();
+        } else {
+          if (commandCase_ == 2) {
+            return userLogOutBuilder_.getMessage();
+          }
+          return ProtoResponse.UserLogOut.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      public Builder setUserLogOut(ProtoResponse.UserLogOut value) {
+        if (userLogOutBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          command_ = value;
+          onChanged();
+        } else {
+          userLogOutBuilder_.setMessage(value);
+        }
+        commandCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      public Builder setUserLogOut(
+          ProtoResponse.UserLogOut.Builder builderForValue) {
+        if (userLogOutBuilder_ == null) {
+          command_ = builderForValue.build();
+          onChanged();
+        } else {
+          userLogOutBuilder_.setMessage(builderForValue.build());
+        }
+        commandCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      public Builder mergeUserLogOut(ProtoResponse.UserLogOut value) {
+        if (userLogOutBuilder_ == null) {
+          if (commandCase_ == 2 &&
+              command_ != ProtoResponse.UserLogOut.getDefaultInstance()) {
+            command_ = ProtoResponse.UserLogOut.newBuilder((ProtoResponse.UserLogOut) command_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            command_ = value;
+          }
+          onChanged();
+        } else {
+          if (commandCase_ == 2) {
+            userLogOutBuilder_.mergeFrom(value);
+          }
+          userLogOutBuilder_.setMessage(value);
+        }
+        commandCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      public Builder clearUserLogOut() {
+        if (userLogOutBuilder_ == null) {
+          if (commandCase_ == 2) {
+            commandCase_ = 0;
+            command_ = null;
+            onChanged();
+          }
+        } else {
+          if (commandCase_ == 2) {
+            commandCase_ = 0;
+            command_ = null;
+          }
+          userLogOutBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      public ProtoResponse.UserLogOut.Builder getUserLogOutBuilder() {
+        return getUserLogOutFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      public ProtoResponse.UserLogOutOrBuilder getUserLogOutOrBuilder() {
+        if ((commandCase_ == 2) && (userLogOutBuilder_ != null)) {
+          return userLogOutBuilder_.getMessageOrBuilder();
+        } else {
+          if (commandCase_ == 2) {
+            return (ProtoResponse.UserLogOut) command_;
+          }
+          return ProtoResponse.UserLogOut.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .UserLogOut userLogOut = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          ProtoResponse.UserLogOut, ProtoResponse.UserLogOut.Builder, ProtoResponse.UserLogOutOrBuilder> 
+          getUserLogOutFieldBuilder() {
+        if (userLogOutBuilder_ == null) {
+          if (!(commandCase_ == 2)) {
+            command_ = ProtoResponse.UserLogOut.getDefaultInstance();
+          }
+          userLogOutBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              ProtoResponse.UserLogOut, ProtoResponse.UserLogOut.Builder, ProtoResponse.UserLogOutOrBuilder>(
+                  (ProtoResponse.UserLogOut) command_,
+                  getParentForChildren(),
+                  isClean());
+          command_ = null;
+        }
+        commandCase_ = 2;
+        onChanged();;
+        return userLogOutBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -568,33 +761,33 @@ public final class ProtoResponse {
 
   }
 
-  public interface TestBufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:TestBuf)
+  public interface UserLoginOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:UserLogin)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string data = 1;</code>
+     * <code>optional string result = 1;</code>
      */
-    java.lang.String getData();
+    java.lang.String getResult();
     /**
-     * <code>optional string data = 1;</code>
+     * <code>optional string result = 1;</code>
      */
     com.google.protobuf.ByteString
-        getDataBytes();
+        getResultBytes();
   }
   /**
-   * Protobuf type {@code TestBuf}
+   * Protobuf type {@code UserLogin}
    */
-  public  static final class TestBuf extends
+  public  static final class UserLogin extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:TestBuf)
-      TestBufOrBuilder {
-    // Use TestBuf.newBuilder() to construct.
-    private TestBuf(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:UserLogin)
+      UserLoginOrBuilder {
+    // Use UserLogin.newBuilder() to construct.
+    private UserLogin(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
     }
-    private TestBuf() {
-      data_ = "";
+    private UserLogin() {
+      result_ = "";
     }
 
     @java.lang.Override
@@ -602,7 +795,7 @@ public final class ProtoResponse {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private TestBuf(
+    private UserLogin(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
       this();
@@ -624,7 +817,7 @@ public final class ProtoResponse {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              data_ = s;
+              result_ = s;
               break;
             }
           }
@@ -641,44 +834,44 @@ public final class ProtoResponse {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ProtoResponse.internal_static_TestBuf_descriptor;
+      return ProtoResponse.internal_static_UserLogin_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ProtoResponse.internal_static_TestBuf_fieldAccessorTable
+      return ProtoResponse.internal_static_UserLogin_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ProtoResponse.TestBuf.class, ProtoResponse.TestBuf.Builder.class);
+              ProtoResponse.UserLogin.class, ProtoResponse.UserLogin.Builder.class);
     }
 
-    public static final int DATA_FIELD_NUMBER = 1;
-    private volatile java.lang.Object data_;
+    public static final int RESULT_FIELD_NUMBER = 1;
+    private volatile java.lang.Object result_;
     /**
-     * <code>optional string data = 1;</code>
+     * <code>optional string result = 1;</code>
      */
-    public java.lang.String getData() {
-      java.lang.Object ref = data_;
+    public java.lang.String getResult() {
+      java.lang.Object ref = result_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        data_ = s;
+        result_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string data = 1;</code>
+     * <code>optional string result = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getDataBytes() {
-      java.lang.Object ref = data_;
+        getResultBytes() {
+      java.lang.Object ref = result_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        data_ = b;
+        result_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -697,8 +890,8 @@ public final class ProtoResponse {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getDataBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 1, data_);
+      if (!getResultBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, result_);
       }
     }
 
@@ -707,61 +900,61 @@ public final class ProtoResponse {
       if (size != -1) return size;
 
       size = 0;
-      if (!getDataBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, data_);
+      if (!getResultBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, result_);
       }
       memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    public static ProtoResponse.TestBuf parseFrom(
+    public static ProtoResponse.UserLogin parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoResponse.TestBuf parseFrom(
+    public static ProtoResponse.UserLogin parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoResponse.TestBuf parseFrom(byte[] data)
+    public static ProtoResponse.UserLogin parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static ProtoResponse.TestBuf parseFrom(
+    public static ProtoResponse.UserLogin parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static ProtoResponse.TestBuf parseFrom(java.io.InputStream input)
+    public static ProtoResponse.UserLogin parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static ProtoResponse.TestBuf parseFrom(
+    public static ProtoResponse.UserLogin parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static ProtoResponse.TestBuf parseDelimitedFrom(java.io.InputStream input)
+    public static ProtoResponse.UserLogin parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static ProtoResponse.TestBuf parseDelimitedFrom(
+    public static ProtoResponse.UserLogin parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static ProtoResponse.TestBuf parseFrom(
+    public static ProtoResponse.UserLogin parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static ProtoResponse.TestBuf parseFrom(
+    public static ProtoResponse.UserLogin parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -772,7 +965,7 @@ public final class ProtoResponse {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(ProtoResponse.TestBuf prototype) {
+    public static Builder newBuilder(ProtoResponse.UserLogin prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -787,25 +980,25 @@ public final class ProtoResponse {
       return builder;
     }
     /**
-     * Protobuf type {@code TestBuf}
+     * Protobuf type {@code UserLogin}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:TestBuf)
-        ProtoResponse.TestBufOrBuilder {
+        // @@protoc_insertion_point(builder_implements:UserLogin)
+        ProtoResponse.UserLoginOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return ProtoResponse.internal_static_TestBuf_descriptor;
+        return ProtoResponse.internal_static_UserLogin_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return ProtoResponse.internal_static_TestBuf_fieldAccessorTable
+        return ProtoResponse.internal_static_UserLogin_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                ProtoResponse.TestBuf.class, ProtoResponse.TestBuf.Builder.class);
+                ProtoResponse.UserLogin.class, ProtoResponse.UserLogin.Builder.class);
       }
 
-      // Construct using ProtoResponse.TestBuf.newBuilder()
+      // Construct using ProtoResponse.UserLogin.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -821,48 +1014,48 @@ public final class ProtoResponse {
       }
       public Builder clear() {
         super.clear();
-        data_ = "";
+        result_ = "";
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return ProtoResponse.internal_static_TestBuf_descriptor;
+        return ProtoResponse.internal_static_UserLogin_descriptor;
       }
 
-      public ProtoResponse.TestBuf getDefaultInstanceForType() {
-        return ProtoResponse.TestBuf.getDefaultInstance();
+      public ProtoResponse.UserLogin getDefaultInstanceForType() {
+        return ProtoResponse.UserLogin.getDefaultInstance();
       }
 
-      public ProtoResponse.TestBuf build() {
-        ProtoResponse.TestBuf result = buildPartial();
+      public ProtoResponse.UserLogin build() {
+        ProtoResponse.UserLogin result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public ProtoResponse.TestBuf buildPartial() {
-        ProtoResponse.TestBuf result = new ProtoResponse.TestBuf(this);
-        result.data_ = data_;
+      public ProtoResponse.UserLogin buildPartial() {
+        ProtoResponse.UserLogin result = new ProtoResponse.UserLogin(this);
+        result.result_ = result_;
         onBuilt();
         return result;
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ProtoResponse.TestBuf) {
-          return mergeFrom((ProtoResponse.TestBuf)other);
+        if (other instanceof ProtoResponse.UserLogin) {
+          return mergeFrom((ProtoResponse.UserLogin)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(ProtoResponse.TestBuf other) {
-        if (other == ProtoResponse.TestBuf.getDefaultInstance()) return this;
-        if (!other.getData().isEmpty()) {
-          data_ = other.data_;
+      public Builder mergeFrom(ProtoResponse.UserLogin other) {
+        if (other == ProtoResponse.UserLogin.getDefaultInstance()) return this;
+        if (!other.getResult().isEmpty()) {
+          result_ = other.result_;
           onChanged();
         }
         onChanged();
@@ -877,11 +1070,11 @@ public final class ProtoResponse {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        ProtoResponse.TestBuf parsedMessage = null;
+        ProtoResponse.UserLogin parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ProtoResponse.TestBuf) e.getUnfinishedMessage();
+          parsedMessage = (ProtoResponse.UserLogin) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -891,71 +1084,71 @@ public final class ProtoResponse {
         return this;
       }
 
-      private java.lang.Object data_ = "";
+      private java.lang.Object result_ = "";
       /**
-       * <code>optional string data = 1;</code>
+       * <code>optional string result = 1;</code>
        */
-      public java.lang.String getData() {
-        java.lang.Object ref = data_;
+      public java.lang.String getResult() {
+        java.lang.Object ref = result_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          data_ = s;
+          result_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string data = 1;</code>
+       * <code>optional string result = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getDataBytes() {
-        java.lang.Object ref = data_;
+          getResultBytes() {
+        java.lang.Object ref = result_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          data_ = b;
+          result_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string data = 1;</code>
+       * <code>optional string result = 1;</code>
        */
-      public Builder setData(
+      public Builder setResult(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        data_ = value;
+        result_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string data = 1;</code>
+       * <code>optional string result = 1;</code>
        */
-      public Builder clearData() {
+      public Builder clearResult() {
         
-        data_ = getDefaultInstance().getData();
+        result_ = getDefaultInstance().getResult();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string data = 1;</code>
+       * <code>optional string result = 1;</code>
        */
-      public Builder setDataBytes(
+      public Builder setResultBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        data_ = value;
+        result_ = value;
         onChanged();
         return this;
       }
@@ -970,27 +1163,27 @@ public final class ProtoResponse {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:TestBuf)
+      // @@protoc_insertion_point(builder_scope:UserLogin)
     }
 
-    // @@protoc_insertion_point(class_scope:TestBuf)
-    private static final ProtoResponse.TestBuf DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:UserLogin)
+    private static final ProtoResponse.UserLogin DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ProtoResponse.TestBuf();
+      DEFAULT_INSTANCE = new ProtoResponse.UserLogin();
     }
 
-    public static ProtoResponse.TestBuf getDefaultInstance() {
+    public static ProtoResponse.UserLogin getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<TestBuf>
-        PARSER = new com.google.protobuf.AbstractParser<TestBuf>() {
-      public TestBuf parsePartialFrom(
+    private static final com.google.protobuf.Parser<UserLogin>
+        PARSER = new com.google.protobuf.AbstractParser<UserLogin>() {
+      public UserLogin parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         try {
-          return new TestBuf(input, extensionRegistry);
+          return new UserLogin(input, extensionRegistry);
         } catch (RuntimeException e) {
           if (e.getCause() instanceof
               com.google.protobuf.InvalidProtocolBufferException) {
@@ -1002,16 +1195,465 @@ public final class ProtoResponse {
       }
     };
 
-    public static com.google.protobuf.Parser<TestBuf> parser() {
+    public static com.google.protobuf.Parser<UserLogin> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<TestBuf> getParserForType() {
+    public com.google.protobuf.Parser<UserLogin> getParserForType() {
       return PARSER;
     }
 
-    public ProtoResponse.TestBuf getDefaultInstanceForType() {
+    public ProtoResponse.UserLogin getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UserLogOutOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:UserLogOut)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string result = 1;</code>
+     */
+    java.lang.String getResult();
+    /**
+     * <code>optional string result = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getResultBytes();
+  }
+  /**
+   * Protobuf type {@code UserLogOut}
+   */
+  public  static final class UserLogOut extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:UserLogOut)
+      UserLogOutOrBuilder {
+    // Use UserLogOut.newBuilder() to construct.
+    private UserLogOut(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private UserLogOut() {
+      result_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private UserLogOut(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              result_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw new RuntimeException(e.setUnfinishedMessage(this));
+      } catch (java.io.IOException e) {
+        throw new RuntimeException(
+            new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this));
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ProtoResponse.internal_static_UserLogOut_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoResponse.internal_static_UserLogOut_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoResponse.UserLogOut.class, ProtoResponse.UserLogOut.Builder.class);
+    }
+
+    public static final int RESULT_FIELD_NUMBER = 1;
+    private volatile java.lang.Object result_;
+    /**
+     * <code>optional string result = 1;</code>
+     */
+    public java.lang.String getResult() {
+      java.lang.Object ref = result_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        result_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string result = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getResultBytes() {
+      java.lang.Object ref = result_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        result_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getResultBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, result_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getResultBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, result_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    public static ProtoResponse.UserLogOut parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoResponse.UserLogOut parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoResponse.UserLogOut parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoResponse.UserLogOut parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoResponse.UserLogOut parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static ProtoResponse.UserLogOut parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static ProtoResponse.UserLogOut parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static ProtoResponse.UserLogOut parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static ProtoResponse.UserLogOut parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static ProtoResponse.UserLogOut parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ProtoResponse.UserLogOut prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code UserLogOut}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:UserLogOut)
+        ProtoResponse.UserLogOutOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ProtoResponse.internal_static_UserLogOut_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoResponse.internal_static_UserLogOut_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoResponse.UserLogOut.class, ProtoResponse.UserLogOut.Builder.class);
+      }
+
+      // Construct using ProtoResponse.UserLogOut.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        result_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ProtoResponse.internal_static_UserLogOut_descriptor;
+      }
+
+      public ProtoResponse.UserLogOut getDefaultInstanceForType() {
+        return ProtoResponse.UserLogOut.getDefaultInstance();
+      }
+
+      public ProtoResponse.UserLogOut build() {
+        ProtoResponse.UserLogOut result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public ProtoResponse.UserLogOut buildPartial() {
+        ProtoResponse.UserLogOut result = new ProtoResponse.UserLogOut(this);
+        result.result_ = result_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ProtoResponse.UserLogOut) {
+          return mergeFrom((ProtoResponse.UserLogOut)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ProtoResponse.UserLogOut other) {
+        if (other == ProtoResponse.UserLogOut.getDefaultInstance()) return this;
+        if (!other.getResult().isEmpty()) {
+          result_ = other.result_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoResponse.UserLogOut parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoResponse.UserLogOut) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object result_ = "";
+      /**
+       * <code>optional string result = 1;</code>
+       */
+      public java.lang.String getResult() {
+        java.lang.Object ref = result_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          result_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string result = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getResultBytes() {
+        java.lang.Object ref = result_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          result_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string result = 1;</code>
+       */
+      public Builder setResult(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        result_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string result = 1;</code>
+       */
+      public Builder clearResult() {
+        
+        result_ = getDefaultInstance().getResult();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string result = 1;</code>
+       */
+      public Builder setResultBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        result_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:UserLogOut)
+    }
+
+    // @@protoc_insertion_point(class_scope:UserLogOut)
+    private static final ProtoResponse.UserLogOut DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ProtoResponse.UserLogOut();
+    }
+
+    public static ProtoResponse.UserLogOut getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UserLogOut>
+        PARSER = new com.google.protobuf.AbstractParser<UserLogOut>() {
+      public UserLogOut parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        try {
+          return new UserLogOut(input, extensionRegistry);
+        } catch (RuntimeException e) {
+          if (e.getCause() instanceof
+              com.google.protobuf.InvalidProtocolBufferException) {
+            throw (com.google.protobuf.InvalidProtocolBufferException)
+                e.getCause();
+          }
+          throw e;
+        }
+      }
+    };
+
+    public static com.google.protobuf.Parser<UserLogOut> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UserLogOut> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoResponse.UserLogOut getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1023,10 +1665,15 @@ public final class ProtoResponse {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Response_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_TestBuf_descriptor;
+    internal_static_UserLogin_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_TestBuf_fieldAccessorTable;
+      internal_static_UserLogin_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_UserLogOut_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_UserLogOut_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1036,10 +1683,11 @@ public final class ProtoResponse {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\026ProtofulResponse.proto\"/\n\010Response\022\030\n\004" +
-      "test\030\001 \001(\0132\010.TestBufH\000B\t\n\007Command\"\027\n\007Tes" +
-      "tBuf\022\014\n\004data\030\001 \001(\tB\017B\rProtoResponseb\006pro" +
-      "to3"
+      "\n\026ProtofulResponse.proto\"Y\n\010Response\022\037\n\t" +
+      "userLogin\030\001 \001(\0132\n.UserLoginH\000\022!\n\nuserLog" +
+      "Out\030\002 \001(\0132\013.UserLogOutH\000B\t\n\007Command\"\033\n\tU" +
+      "serLogin\022\016\n\006result\030\001 \001(\t\"\034\n\nUserLogOut\022\016" +
+      "\n\006result\030\001 \001(\tB\017B\rProtoResponseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1058,13 +1706,19 @@ public final class ProtoResponse {
     internal_static_Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Response_descriptor,
-        new java.lang.String[] { "Test", "Command", });
-    internal_static_TestBuf_descriptor =
+        new java.lang.String[] { "UserLogin", "UserLogOut", "Command", });
+    internal_static_UserLogin_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_TestBuf_fieldAccessorTable = new
+    internal_static_UserLogin_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_TestBuf_descriptor,
-        new java.lang.String[] { "Data", });
+        internal_static_UserLogin_descriptor,
+        new java.lang.String[] { "Result", });
+    internal_static_UserLogOut_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_UserLogOut_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_UserLogOut_descriptor,
+        new java.lang.String[] { "Result", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

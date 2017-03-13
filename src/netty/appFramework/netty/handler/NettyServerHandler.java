@@ -4,14 +4,13 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-
 import com.alibaba.fastjson.JSON;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
-import netty.appFramework.action.Test;
+import netty.appFramework.action.user.UserAction;
+import netty.appFramework.common.AppContext;
 import netty.appFramework.common.AppContextSingle;
 import netty.appFramework.model.APIResult;
 import netty.appFramework.netty.proto.ProtoRequest;
@@ -20,31 +19,31 @@ import netty.appFramework.netty.proto.ProtoResponse;
 
 public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	private Logger log = LoggerFactory.getLogger(getClass());
+	private static AppContext appContext = AppContextSingle.APPCONTEXT.getInstantce();
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		//断开连接时要将客户端的登录信息清除
+		// 断开连接时要将客户端的登录信息清除
 		log.info("channelInactive");
+		appContext.getSessionMap().remove(ctx);
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		ApplicationContext appContext = AppContextSingle.APPCONTEXT.getInstantce().getAppContext();
-		if(msg instanceof ProtoRequest.Request){
+
+		if (msg instanceof ProtoRequest.Request) {
 			ProtoRequest.Request request = (Request) msg;
-			switch(request.getCommandCase()){
-			case TEST:
-				APIResult<Map<String,Object>> result = new APIResult<Map<String,Object>>();
-				Test testAction = appContext.getBean(Test.class);
-				result = testAction.testAction();
-				ProtoResponse.Response.Builder responseBuilder = ProtoResponse.Response.newBuilder();
-				ProtoResponse.TestBuf.Builder testBuilder = ProtoResponse.TestBuf.newBuilder();
-				testBuilder.setData(JSON.toJSONString(result));
-				responseBuilder.setTest(testBuilder);
-				ctx.writeAndFlush(responseBuilder);
+			switch (request.getCommandCase()) {
+			case USERLOGIN:
+				userLogin(ctx, request);
+				break;
+			case USERLOGOUT:
+				userLogOut(ctx, request);
+				break;
+			default:
 				break;
 			}
-		}else{
+		} else {
 			ctx.writeAndFlush(new String("参数不符合要求!!!"));
 		}
 	}
@@ -75,5 +74,26 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 		}
 	}
 	
-	
+	public static void userLogin(ChannelHandlerContext ctx, Request request) {
+		APIResult<?> result = new APIResult<>();
+		UserAction userAction = appContext.getApplicationContext().getBean(UserAction.class);
+		Map<String, Object> reqMap = JSON.parseObject(request.getUserLogin().getReqMap(), Map.class);
+		result = userAction.userLogin(ctx,reqMap);
+		ProtoResponse.Response.Builder response = ProtoResponse.Response.newBuilder();
+		ProtoResponse.UserLogin.Builder userLogin = ProtoResponse.UserLogin.newBuilder();
+		userLogin.setResult(JSON.toJSONString(result));
+		response.setUserLogin(userLogin);
+		ctx.writeAndFlush(response);
+	}
+
+	public static void userLogOut(ChannelHandlerContext ctx, Request request) {
+		APIResult<?> result = new APIResult<>();
+		UserAction userAction = appContext.getApplicationContext().getBean(UserAction.class);
+		result = userAction.userLogOut(ctx);
+		ProtoResponse.Response.Builder response = ProtoResponse.Response.newBuilder();
+		ProtoResponse.UserLogOut.Builder userLogOut = ProtoResponse.UserLogOut.newBuilder();
+		userLogOut.setResult(JSON.toJSONString(result));
+		response.setUserLogOut(userLogOut);
+		ctx.writeAndFlush(response);
+	}
 }
