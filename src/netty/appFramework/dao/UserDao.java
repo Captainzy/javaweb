@@ -3,6 +3,9 @@ package netty.appFramework.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -20,7 +23,20 @@ public class UserDao {
 				+ " t.link_phone AS t.linkPhone,t.linkEmail AS linkEmail,t.leader_name AS t.leaderName,t.leaderPhone AS leaderPhone"
 				+ " t.last_login_time AS lastLoginTime,t.lastLoginIp AS lastLoginIp,t.ip_lock_status AS ipLockStatus FROM tb_user t WHERE t.login_name = ? AND t.login_pwd = ?";
 		Object[] objs = new Object[] { userName, password };
-		return jdbcTemplate.queryForObject(sql, UserInfo.class);
+		List<Map<String,Object>> result = jdbcTemplate.queryForList(sql, objs);
+		if(result!=null && result.size()>0){
+			Map<String,Object> map = result.get(0);
+			UserInfo userInfo = new UserInfo();
+			try {
+				//避免Date为NULL时报错
+				ConvertUtils.register(new DateConverter(null), java.util.Date.class); 
+				BeanUtils.populate(userInfo, map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return userInfo;
+		}
+		return null;
 	}
 
 	public Integer[] queryUserRoles(int userId){
