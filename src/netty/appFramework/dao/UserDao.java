@@ -1,5 +1,6 @@
 package netty.appFramework.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class UserDao {
 			UserInfo userInfo = new UserInfo();
 			try {
 				//避免Date为NULL时报错
-				ConvertUtils.register(new DateConverter(null), java.util.Date.class); 
+				ConvertUtils.register(new DateConverter(null), Date.class); 
 				BeanUtils.populate(userInfo, map);
 			} catch (Exception e) {
 				e.printStackTrace();
