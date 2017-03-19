@@ -16,7 +16,16 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- 激活springmvc 注解 -->
-	<mvc:annotation-driven validator="validator" />
+	<mvc:annotation-driven validator="validator" >
+		<!-- spring返回json数据时将null数据转为空串"" -->
+		<mvc:message-converters> 
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+	            <property name="objectMapper"> 
+	                <bean class="cn.com.silence.notice.common.JsonObjectMapper"></bean> 
+	            </property> 
+	        </bean> 
+	    </mvc:message-converters> 
+	</mvc:annotation-driven>
 
 	<!-- 注解扫描 -->
 	<context:component-scan
