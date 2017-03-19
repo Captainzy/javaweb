@@ -105,6 +105,7 @@ public class HttpClientUtil {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
 		
+		//带有文件的请求需要设置为浏览器模式
 		MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
 		entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 		for (File f : listFile) {
