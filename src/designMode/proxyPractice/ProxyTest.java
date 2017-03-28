@@ -30,14 +30,14 @@ public class ProxyTest {
 		test(proxy);
 		
 		System.out.println("通过代理工厂类动态调用---------");
-		ComInterface dynamicProxy = (ComInterface) DynamicProxyFactory.getProxy(ComInterface.class.getClassLoader(),
+		ComInterface dynamicProxy = (ComInterface) DynamicProxyFactory.getRealObjectProxy(ComInterface.class.getClassLoader(),
 				new RealObject());
 
 		test(dynamicProxy);
 	}
 
 	public static void test(ComInterface obj) {
-		obj.methodA();
+		obj.methodA("TEST");
 		obj.methodB();
 	}
 }

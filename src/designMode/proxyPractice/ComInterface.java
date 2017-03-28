@@ -1,6 +1,6 @@
 package designMode.proxyPractice;
 
 public interface ComInterface {
-	public abstract void methodA();
+	public abstract void methodA(String str);
 	void methodB();
 }

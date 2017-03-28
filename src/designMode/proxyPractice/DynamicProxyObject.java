@@ -20,13 +20,19 @@ public class DynamicProxyObject implements InvocationHandler {
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		Object result = null;
+		 //在转调具体目标对象之前，可以执行一些功能处理
 		System.out.println(" RealObject -->" + proxy.getClass() + "\n method -->" + method + " \n args -->" + args);
 		if (args != null && args.length > 0) {
 			for (Object obj : args) {
 				System.out.print(obj + "---");
 			}
 		}
-		return method.invoke(this.proxy, args);
+		//转调具体目标对象的方法
+		result = method.invoke(this.proxy, args);
+		//在转调具体目标对象之后，可以执行一些功能处理
+		//......
+		return result;
 	}
 
 }

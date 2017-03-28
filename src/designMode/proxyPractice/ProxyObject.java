@@ -11,9 +11,9 @@ public class ProxyObject implements ComInterface{
 	}
 	
 	@Override
-	public void methodA() {
-		System.out.println("in the ProxyObject method A");
-		proxy.methodA();
+	public void methodA(String str) {
+		System.out.println(str+"in the ProxyObject method A");
+		proxy.methodA(str);
 	}
 
 	@Override

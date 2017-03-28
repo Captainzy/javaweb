@@ -3,8 +3,8 @@ package designMode.proxyPractice;
 public class RealObject implements ComInterface{
 
 	@Override
-	public void methodA() {
-		System.out.println("RealObject method A");
+	public void methodA(String str) {
+		System.out.println(str+" RealObject method A");
 	}
 
 	@Override
