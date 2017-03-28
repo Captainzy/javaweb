@@ -98,7 +98,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	public static void userLogin(ChannelHandlerContext ctx, Request request) {
 		APIResult<?> result = new APIResult<>();
 		UserAction userAction = appContext.getApplicationContext().getBean(UserAction.class);
-		Map<String, Object> reqMap = JSON.parseObject(request.getUserLogin().getReqMap(), Map.class);
+		Map<String, String> reqMap = JSON.parseObject(request.getUserLogin().getReqMap(), Map.class);
 		result = userAction.userLogin(ctx,reqMap);
 		ProtoResponse.Response.Builder response = ProtoResponse.Response.newBuilder();
 		ProtoResponse.UserLogin.Builder userLogin = ProtoResponse.UserLogin.newBuilder();

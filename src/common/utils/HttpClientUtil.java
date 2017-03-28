@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -36,7 +37,9 @@ public class HttpClientUtil {
 	public static String httpPost(String url, Map<String, String> map) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
-
+		//设置超时时间
+		RequestConfig reqConfig = RequestConfig.custom().setConnectTimeout(200).build();
+		httpPost.setConfig(reqConfig);
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		for (Map.Entry<String, String> m : map.entrySet()) {
 			NameValuePair nameValuePair = new BasicNameValuePair(m.getKey(), m.getValue());
@@ -74,7 +77,10 @@ public class HttpClientUtil {
 	public static String httpGet(String url) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(url);
-
+		//设置超时时间
+		RequestConfig reqConfig = RequestConfig.custom().setConnectTimeout(200).build();
+		httpGet.setConfig(reqConfig);
+		
 		CloseableHttpResponse response = null;
 		HttpEntity responseEntity = null;
 		String result = null;
@@ -104,7 +110,9 @@ public class HttpClientUtil {
 	public static String postObject(String url, List<File> listFile, Map<String, String> map) throws FileNotFoundException {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
-		
+		//设置超时时间
+		RequestConfig reqConfig = RequestConfig.custom().setConnectTimeout(200).build();
+		httpPost.setConfig(reqConfig);
 		//带有文件的请求需要设置为浏览器模式
 		MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
 		entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);

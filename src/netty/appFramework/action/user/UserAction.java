@@ -31,11 +31,11 @@ public class UserAction {
 	 * @param reqMap
 	 * @return
 	 */
-	public APIResult<?> userLogin(ChannelHandlerContext ctx,Map<String, Object> reqMap) {
+	public APIResult<?> userLogin(ChannelHandlerContext ctx,Map<String, String> reqMap) {
 		APIResult<?> result = new APIResult<>();
 		Map<Object, Object> sessionMap = appContext.getSessionMap();
-		String userName = reqMap.get("userName").toString();
-		String password = reqMap.get("password").toString();
+		String userName = reqMap.get("userName");
+		String password = reqMap.get("password");
 		if (sessionMap.get(ctx) != null) {
 			result.setCode(-1);
 			result.setMsg("用户已登录，不能重复登录");
