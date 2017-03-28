@@ -1,4 +1,4 @@
-package proxyPractice;
+package designMode.proxyPractice;
 
 public class ProxyObject implements ComInterface{
 

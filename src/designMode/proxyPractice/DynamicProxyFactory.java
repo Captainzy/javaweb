@@ -1,4 +1,4 @@
-package proxyPractice;
+package designMode.proxyPractice;
 
 import java.lang.reflect.Proxy;
 
