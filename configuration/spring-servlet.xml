@@ -21,7 +21,7 @@
 		<mvc:message-converters> 
 	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
 	            <property name="objectMapper"> 
-	                <bean class="cn.com.silence.notice.common.JsonObjectMapper"></bean> 
+	                <bean class="applicationListener.JsonObjectMapper"></bean> 
 	            </property> 
 	        </bean> 
 	    </mvc:message-converters> 

@@ -25,7 +25,8 @@ public class DownloadController {
 	/**
 	 * @author zouyang
 	 * @time 2017年2月24日 上午11:35:38
-	 * @description 采用spring的封装对象ResponseEntity<T>实现下载,这种方式下载的文件不宜太大
+	 * @description 采用spring的封装对象ResponseEntity<T>实现下载,这种方式下载的文件不宜太大，
+	 * 				并且通过HttpClient编写客户端调用下载时，这种方式可能会造成文件损坏的问题（经过查询可能是内部转换的时候造成的问题）。
 	 * @return
 	 * @throws Exception
 	 */
