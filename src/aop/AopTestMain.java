@@ -18,12 +18,7 @@ public class AopTestMain {
 		 */
 		ApplicationContext ac = new ClassPathXmlApplicationContext("spring-servlet.xml","applicationContext.xml");
 
-		//发布的时候由于要打jar文件，所以用绝对路径
 		String[] configLocations = {new File("").getAbsolutePath()+"/config/applicationContext.xml"};
-		//String[] configLocations = {"config/applicationContext.xml"};
-		//配置文件在类路径下
-		//context = new ClassPathXmlApplicationContext(configLocations);
-		//配置文件在系统目录里
 		ApplicationContext applicationContext = new FileSystemXmlApplicationContext(configLocations);
 		
 		TestService ts = (TestService) ac.getBean("testService");
