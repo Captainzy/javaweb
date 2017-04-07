@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class JsonObjectMapper extends ObjectMapper{
 	/**
-	 * 
+	 * 这里可以实现springmvc采用@ResponseBody返回json串的时候空值自动设为空串
 	 */
 	private static final long serialVersionUID = 1L;
 
