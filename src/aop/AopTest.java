@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 public class AopTest {
 	/**
 	 * 表达式  execution (* com.impl..*.*(..))
-	 * 第一个*号代表所有返回值为任意类型
-	 * ..代表com.impl包和所有的子包
-	 * 第二个*号代表任意类，
-	 * 第三个*号代表任意方法
+	 * 第一个“*”号代表所有返回值为任意类型
+	 * “..”代表com.impl包和所有的子包
+	 * 第二个“*”号代表任意类，
+	 * 第三个“*”号代表任意方法
 	 * 
 	 */
 	@Pointcut("execution(* cn.zouyang.test.service.*.*(..))")
