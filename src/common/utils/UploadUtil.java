@@ -79,7 +79,7 @@ public class UploadUtil {
 			long begin = new Date().getTime();
 			for(int i = 0;i<files.size();i++){
 				MultipartFile file = files.get(i);
-				/*采用MutipartFile自带方法保存文件，这种方式有个问题就是只能使用一次，下一次使用就会报File has been moved - cannot be read again
+				/**采用MutipartFile自带方法保存文件，这种方式有个问题就是只能使用一次，下一次使用就会报File has been moved - cannot be read again
 				 * 这是由于spring的MultipartFile会将Inputstream写入到临时文件里，在使用了一次后，spring会自动删除临时文件，所以当第2次使用的时候会找不到临时文件，因此报异常
 				 * 解决方法：
 				 * 1.配置maxInMemorySize的大小，可以让小于maxInMemorySize的文件直接读到内存中，不存放临时文件，
