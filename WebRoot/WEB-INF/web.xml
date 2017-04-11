@@ -19,9 +19,10 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping> -->
   
-  <listener>
+  	<!-- 如果在Java代码中使用了@WebListener注解，则可以不需要在这里配置 -->
+<!--   <listener>
     <listener-class>applicationListener.ApplicationListenser</listener-class>
-  </listener>
+  </listener> -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>

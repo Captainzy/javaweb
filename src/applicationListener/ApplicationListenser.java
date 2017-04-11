@@ -15,7 +15,7 @@ import socket.thread.InitServerSocket;
  * 
  */
 
-@WebListener
+@WebListener//使用这个注解后，不用再web.xml文件里面使用Listener标签配置
 public class ApplicationListenser implements ServletContextListener {
 
 	@Override
@@ -26,6 +26,7 @@ public class ApplicationListenser implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		System.out.println("application listener ..........");
 		ServletContext servletContext = sce.getServletContext();
 		ApplicationContext appContext = ApplicationContext.getApplicationContext();
 		appContext.register(servletContext);
