@@ -1,5 +1,6 @@
 package common.utils;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -56,8 +57,8 @@ public class HttpClientUtil {
 
 			HttpEntity responseEntity = response.getEntity();
 			result = EntityUtils.toString(responseEntity, "UTF-8");
-			// BufferedInputStream bin = new
-			// BufferedInputStream(responseEntity.getContent());
+			//BufferedInputStream bin = new BufferedInputStream(responseEntity.getContent());
+			//int contentLent = (int) responseEntity.getContentLength();
 			// byte[] b = new byte[2048];
 			// bin.read(b);
 			// result = EncodingUtils.getString(b, "UTF-8");
