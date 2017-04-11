@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -100,7 +101,7 @@ public class Test {
 		return JSON.toJSONString("success");
 	}
 	@RequestMapping(value="/{varName}/getPathVariable/{varValue}/{methodName}")
-	public @ResponseBody String getPathVariable(String varName,String varValue,String methodName){
+	public @ResponseBody String getPathVariable(@PathVariable String varName,@PathVariable String varValue,@PathVariable String methodName){
 		System.out.println("varName:"+varName+"\nvarValue:"+varValue+"\nmethodName:"+methodName);	
 		return JSON.toJSONString("success");
 	}
