@@ -14,7 +14,9 @@
 
 	<import resource="classpath:spring-quartz.xml"/>
 	<!-- <import resource="classpath:spring-redis.xml"/> -->
+	<!-- context:property-placeholder 只能引入一个properties文件，如果要多个，则可以多次配置，还可以设置order来配置加载的优先级 -->
 	<context:property-placeholder location="classpath:ds.properties" />
+	<context:property-placeholder location="classpath:log4j.properties" />
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="url"  value="${mysql.url}"/>
