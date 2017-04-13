@@ -23,14 +23,13 @@ public class ProxyTest {
 		
 		System.out.println("通过代理对象调用---------");
 		test(new ProxyObject(new RealObject()));
-		
-		ComInterface proxy = (ComInterface) Proxy.newProxyInstance(ComInterface.class.getClassLoader(),
-				new Class[] { ComInterface.class }, new DynamicProxyObject(new RealObject()));
+		ComInterface proxy = (ComInterface) Proxy.newProxyInstance(RealObject.class.getClassLoader(),
+				RealObject.class.getInterfaces(), new DynamicProxyObject(new RealObject()));
 		System.out.println("动态调用代理--------");
 		test(proxy);
 		
 		System.out.println("通过代理工厂类动态调用---------");
-		ComInterface dynamicProxy = (ComInterface) DynamicProxyFactory.getRealObjectProxy(ComInterface.class.getClassLoader(),
+		ComInterface dynamicProxy = (ComInterface) DynamicProxyFactory.getRealObjectProxy(RealObject.class.getClassLoader(),
 				new RealObject());
 
 		test(dynamicProxy);
