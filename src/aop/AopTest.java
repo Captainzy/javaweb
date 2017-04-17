@@ -1,5 +1,6 @@
 package aop;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -19,13 +20,11 @@ public class AopTest {
 	 * 第三个“*”号代表任意方法
 	 * 
 	 */
-	@Pointcut("execution(* cn.zouyang.test.service.*.*(..))")
-	private void testPointCut(){
-		System.out.println("----------------testPointCut--------------");
-	}
+	@Pointcut("execution(* controllerTest.*.*(..))")
+	public void testPointCut(){}
 	
 	@Before("testPointCut()")
-	public void beforePointCut(){
+	public void beforePointCut(JoinPoint point){
 		System.out.println("====================beforePointCut=-=====================");
 	}
 	
@@ -33,6 +32,5 @@ public class AopTest {
 	public void afterPointCut(){
 		System.out.println("====================afterPointCut=-=====================");
 	}
-	
-	
+		
 }

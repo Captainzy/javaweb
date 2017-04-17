@@ -5,8 +5,8 @@ package designMode.singleton;
  */
 public class Singleton {
 	
-	//构造函数用protected修饰可以保证其他包不能通过new关键字构造实例对象，这样就方便利用枚举的方式实现单例模式
-	protected Singleton(){}
+	//修饰符默认是default(friendly)，构造函数用默认修饰符修饰可以保证只有同包和本类能通过new关键字构造实例对象，这样就方便利用枚举的方式实现单例模式
+	Singleton(){}
 	
 	/**
 	 * @author zouyang
