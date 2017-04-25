@@ -3,7 +3,7 @@ package threadPractice.lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Woman2 implements Runnable {
-	private ReentrantReadWriteLock lock;
+	private static ReentrantReadWriteLock lock;
 	private Money m;
 	private String name;
 	public Woman2() {

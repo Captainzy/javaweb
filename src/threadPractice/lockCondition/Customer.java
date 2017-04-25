@@ -4,9 +4,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Customer implements Runnable {
-	private ReentrantLock lock;
-	private Condition c;
-	private BusinessWindow bw;
+	private static ReentrantLock lock;
+	private static Condition c;
+	private static BusinessWindow bw;
 	private boolean isVip;
 	private String name;
 	public Customer() {

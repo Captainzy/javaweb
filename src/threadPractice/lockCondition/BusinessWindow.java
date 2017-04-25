@@ -5,10 +5,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class BusinessWindow implements Runnable {
 	private boolean dealVip;
-	private ReentrantLock lock;
-	private Condition bwc;
-	private Condition cvip;
-	private Condition c;
+	private static ReentrantLock lock;
+	private static Condition bwc;
+	private static Condition cvip;
+	private static Condition c;
 	private int num;// vip等待人数
 	private int curNum;// 当前总共等待人数
 

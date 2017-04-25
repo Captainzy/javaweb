@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Man2 implements Runnable{
 	private Money m;
-	private ReentrantReadWriteLock lock;
+	private static ReentrantReadWriteLock lock;
 
 	public Man2() {
 	}

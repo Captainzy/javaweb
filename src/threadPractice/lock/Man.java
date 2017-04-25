@@ -4,7 +4,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Man implements Runnable{
 	private Money m;
-	private ReentrantLock lock;
+	private static ReentrantLock lock;
 
 	public Man() {
 	}
