@@ -5,9 +5,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.SSLContext;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -17,6 +24,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -24,6 +32,8 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 
 public class HttpClientUtil {
@@ -36,6 +46,9 @@ public class HttpClientUtil {
 	 * @return
 	 */
 	public static String httpPost(String url, Map<String, String> map) {
+		//可以通过httpsClient发送https请求
+		//CloseableHttpClient httpsClient = HttpClients.custom().setSSLSocketFactory(createSSLConnectionSocketFactory()).build();
+		//通过httpClient发送http请求
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
 		//设置超时时间
@@ -76,6 +89,9 @@ public class HttpClientUtil {
 
 	// get请求
 	public static String httpGet(String url) {
+		//可以通过httpsClient发送https请求
+		//CloseableHttpClient httpsClient = HttpClients.custom().setSSLSocketFactory(createSSLConnectionSocketFactory()).build();
+		//通过httpClient发送http请求
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(url);
 		//设置超时时间
@@ -109,6 +125,9 @@ public class HttpClientUtil {
 	 * @throws FileNotFoundException
 	 */
 	public static String postObject(String url, List<File> listFile, Map<String, String> map) throws FileNotFoundException {
+		//可以通过httpsClient发送https请求
+		//CloseableHttpClient httpsClient = HttpClients.custom().setSSLSocketFactory(createSSLConnectionSocketFactory()).build();
+		//通过httpClient发送http请求
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost(url);
 		//设置超时时间
@@ -142,6 +161,32 @@ public class HttpClientUtil {
 			e1.printStackTrace();
 		}
 		return result;
+	}
+	
+	/**
+	 * @author zouyang
+	 * @time 2017年5月16日 下午4:20:55
+	 * @description 创建SSL安全连接
+	 * @return
+	 */
+	public static SSLConnectionSocketFactory createSSLConnectionSocketFactory(){
+		SSLConnectionSocketFactory scsf = null;
+		try {
+			SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
+				//信任所有
+				@Override
+				public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+					return false;
+				}
+			}).build();
+			//SSLConnectionSocketFactory提供了多个构造函数，如果需要自定义验证机制，则采用其他的够着函数，
+			//比如SSLConnectionSocketFactory(SSLContext sslContext, HostnameVerifier hostnameVerifier)
+			//其中HostnameVerifier是一个接口，可以实现该接口实现自定义的验证机制
+			scsf = new SSLConnectionSocketFactory(sslContext);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return scsf;
 	}
 
 }
