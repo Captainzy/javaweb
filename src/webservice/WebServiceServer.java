@@ -6,7 +6,7 @@ import javax.jws.soap.SOAPBinding;
 import javax.xml.ws.Endpoint;
 
 @WebService
-@SOAPBinding()
+@SOAPBinding
 public class WebServiceServer {
 	@WebMethod()
 	public void getWebService(){
