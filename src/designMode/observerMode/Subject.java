@@ -1,4 +1,4 @@
-package designMode.observer;
+package designMode.observerMode;
 
 //抽象的被观察者
 public interface Subject {

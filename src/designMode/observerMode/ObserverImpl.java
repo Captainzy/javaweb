@@ -1,4 +1,4 @@
-package designMode.observer;
+package designMode.observerMode;
 
 //具体观察者
 public class ObserverImpl implements Observer{

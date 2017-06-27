@@ -1,4 +1,4 @@
-package designMode.observer;
+package designMode.observerMode;
 
 //抽象观察者
 public interface Observer {

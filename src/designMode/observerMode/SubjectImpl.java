@@ -1,4 +1,4 @@
-package designMode.observer;
+package designMode.observerMode;
 
 import java.util.ArrayList;
 import java.util.List;
