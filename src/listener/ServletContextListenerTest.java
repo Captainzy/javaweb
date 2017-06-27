@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebListener;
 import freemarker.template.Configuration;
 
 @WebListener
-public class ScListenerTest implements ServletContextListener {
+public class ServletContextListenerTest implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 @WebListener
-public class HsaListenerTest implements HttpSessionAttributeListener {
+public class HttpSessionAttributeListenerTest implements HttpSessionAttributeListener {
 
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent arg0) {

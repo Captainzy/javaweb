@@ -5,7 +5,7 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class SrListenerTest implements ServletRequestListener {
+public class ServletRequestListenerTest implements ServletRequestListener {
 
 	@Override
 	public void requestDestroyed(ServletRequestEvent arg0) {

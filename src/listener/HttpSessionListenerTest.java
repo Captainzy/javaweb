@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 @WebListener
-public class HsListenerTest implements HttpSessionListener {
+public class HttpSessionListenerTest implements HttpSessionListener {
 	private static int count=0;
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {

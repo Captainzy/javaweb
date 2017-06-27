@@ -5,7 +5,7 @@ import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class ScaListenerTest implements ServletContextAttributeListener {
+public class ServletContextAttributeListenerTest implements ServletContextAttributeListener {
 
 	@Override
 	public void attributeAdded(ServletContextAttributeEvent arg0) {

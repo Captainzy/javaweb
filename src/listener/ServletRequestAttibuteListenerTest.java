@@ -6,7 +6,7 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class SraListenerTest implements ServletRequestAttributeListener{
+public class ServletRequestAttibuteListenerTest implements ServletRequestAttributeListener{
 
 	@Override
 	public void attributeAdded(ServletRequestAttributeEvent arg0) {
