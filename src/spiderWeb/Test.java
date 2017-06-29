@@ -21,7 +21,7 @@ import org.apache.http.impl.client.HttpClients;
 
 public class Test {
 	public static void main(String[] args){
-		String url = "http://www.yiibai.com/";
+		String url = "http://www.csdn.net/";
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(url);
 		
@@ -34,7 +34,11 @@ public class Test {
 				HttpEntity entity = response.getEntity();
 				InputStream in = entity.getContent();
 				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-				BufferedWriter writer = new BufferedWriter(new FileWriter(new File("C:\\Users\\TZ\\Desktop\\yibai.html")));
+				File f = new File("C:\\Users\\zouyang\\Desktop\\yibai.html");
+				if(!f.exists()){
+					f.createNewFile();
+				}
+				BufferedWriter writer = new BufferedWriter(new FileWriter(f));
 				String line = null;
 				while((line=reader.readLine())!=null){
 					System.out.println(line);
