@@ -54,6 +54,8 @@ public class HttpClientUtil {
 		//设置超时时间
 		RequestConfig reqConfig = RequestConfig.custom().setConnectTimeout(200).build();
 		httpPost.setConfig(reqConfig);
+		//加上浏览器客户端标识，模拟下浏览器 设置下User-Agent头消息，避免有些系统做了判断拦截掉httpclient的请求
+		httpPost.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36");
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		for (Map.Entry<String, String> m : map.entrySet()) {
 			NameValuePair nameValuePair = new BasicNameValuePair(m.getKey(), m.getValue());
@@ -97,7 +99,8 @@ public class HttpClientUtil {
 		//设置超时时间
 		RequestConfig reqConfig = RequestConfig.custom().setConnectTimeout(200).build();
 		httpGet.setConfig(reqConfig);
-		
+		//加上浏览器客户端标识，模拟下浏览器 设置下User-Agent头消息，避免有些系统做了判断拦截掉httpclient的请求
+		httpGet.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36");
 		CloseableHttpResponse response = null;
 		HttpEntity responseEntity = null;
 		String result = null;
@@ -133,6 +136,8 @@ public class HttpClientUtil {
 		//设置超时时间
 		RequestConfig reqConfig = RequestConfig.custom().setConnectTimeout(200).build();
 		httpPost.setConfig(reqConfig);
+		//加上浏览器客户端标识，模拟下浏览器 设置下User-Agent头消息，避免有些系统做了判断拦截掉httpclient的请求
+		httpPost.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36");
 		//带有文件的请求需要设置为浏览器模式
 		MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
 		entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
