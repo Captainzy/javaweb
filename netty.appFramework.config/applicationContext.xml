@@ -39,4 +39,26 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource"  ref="dataSource"/>
 	</bean>
+	
+	<bean id="noticeTimerJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">  
+        <property name="jobClass" value="netty.appFramework.common.NoticeTimerJob"></property>  
+        <property name="durability" value="true" />      
+    </bean>  
+    
+	<bean id="cronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="noticeTimerJob" />
+		<!-- run every morning at 6 AM -->
+		<!-- <property name="cronExpression" value="0 0 6 * * ?" /> -->
+		<!-- <property name="cronExpression" value="0 0/1 * * * ?" /> --> <!-- 每分钟 -->
+		<property name="cronExpression" value="*/10 * * * * ?" /> <!-- 每秒 -->
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
 </beans>
